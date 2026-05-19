@@ -9,7 +9,8 @@ import { appRouter } from "../routers/index";
 import { createContext } from "./context";
 import { serveStatic, setupVite } from "./vite";
 import { authRateLimit, apiRateLimit } from "./rateLimit";
-import { logger } from "./logger";
+import { logger, requestLogger } from "./logger";
+import { registerPtsWebhook } from "./ptsWebhook";
 
 function isPortAvailable(port: number): Promise<boolean> {
   return new Promise(resolve => {
@@ -45,6 +46,7 @@ async function startServer() {
 
   registerStorageProxy(app);
   registerOAuthRoutes(app);
+  registerPtsWebhook(app);
 
   app.use(
     "/api/trpc",
