@@ -200,8 +200,9 @@ export function registerPtsWebhook(app: Express) {
    * Auth: Bearer <WEBHOOK_SECRET> in Authorization header
    *       or X-Webhook-Secret header (same secret, alternate header)
    *
-   * The stationId is resolved from the PtsId query param or body:
-   *   ?stationId=<n>  (required)
+   * The stationId is resolved automatically from the PtsId in the payload
+   * by looking up the pts_controllers table. A fallback ?stationId=<n>
+   * query param is accepted if no controller mapping exists yet.
    */
   app.post("/api/pts/createPumpTransaction", async (req: Request, res: Response) => {
     // Auth: Accept Bearer token OR the X-Webhook-Secret header
@@ -212,14 +213,7 @@ export function registerPtsWebhook(app: Express) {
       return;
     }
 
-    // stationId must be supplied as a query param since it's not in the PTS payload
-    const stationId = parseInt((req.query.stationId as string) ?? "");
-    if (!stationId || isNaN(stationId)) {
-      res.status(400).json({ error: "stationId query parameter is required" });
-      return;
-    }
-
-    // Validate body shape
+    // Validate body shape first so we can extract PtsId for controller lookup
     const parsed = PtsBody.safeParse(req.body);
     if (!parsed.success) {
       res.status(400).json({ error: "Invalid PTS payload", details: parsed.error.flatten() });
@@ -228,10 +222,29 @@ export function registerPtsWebhook(app: Express) {
 
     const { PtsId, Packets } = parsed.data;
 
+    // Resolve stationId: look up pts_controllers by PtsId, fall back to ?stationId query param
+    let stationId: number | undefined;
+    const controller = await db.getPtsControllerByPtsId(PtsId);
+    if (controller?.isActive) {
+      stationId = controller.stationId;
+      // Update lastSeenAt in the background
+      db.touchPtsControllerLastSeen(PtsId);
+    } else {
+      // Fallback: allow ?stationId for controllers not yet mapped
+      const qsId = parseInt((req.query.stationId as string) ?? "");
+      if (qsId && !isNaN(qsId)) stationId = qsId;
+    }
+
+    if (!stationId) {
+      res.status(400).json({
+        error: "Cannot resolve stationId: register this PtsId in pts_controllers or pass ?stationId=<n>",
+      });
+      return;
+    }
+
     // Process all packets and collect per-packet results
     const results: PtsPacketResult[] = [];
     for (const packet of Packets) {
-      // Only handle UploadPumpTransaction (already enforced by Zod, but guard for future types)
       if (packet.Type !== "UploadPumpTransaction") {
         results.push({ Id: packet.Id, Type: packet.Type, Error: 0 });
         continue;

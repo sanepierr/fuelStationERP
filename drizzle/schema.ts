@@ -473,6 +473,22 @@ export const shiftAttendants = mysqlTable("shift_attendants", {
   createdAt: timestamp("createdAt").defaultNow().notNull(),
 });
 
+// ─── PTS Controllers ──────────────────────────────────────────────────────────
+// Maps a physical forecourt controller (identified by PtsId) to a station.
+
+export const ptsControllers = mysqlTable("pts_controllers", {
+  id: int("id").autoincrement().primaryKey(),
+  ptsId: varchar("ptsId", { length: 64 }).notNull().unique(),
+  stationId: int("stationId").notNull(),
+  label: varchar("label", { length: 128 }),
+  isActive: boolean("isActive").default(true).notNull(),
+  lastSeenAt: timestamp("lastSeenAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type PtsController = typeof ptsControllers.$inferSelect;
+
 // ─── Audit Logs ───────────────────────────────────────────────────────────────
 
 export const auditLogs = mysqlTable("audit_logs", {

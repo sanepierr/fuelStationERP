@@ -21,6 +21,7 @@ import { usersRouter } from "./users.router";
 import { notificationsRouter } from "./notifications.router";
 import { auditLogsRouter } from "./auditLogs.router";
 import { scheduledRouter } from "./scheduled.router";
+import { ptsControllersRouter } from "./ptsControllers.router";
 
 export const appRouter = router({
   system: systemRouter,
@@ -46,6 +47,7 @@ export const appRouter = router({
   notifications: notificationsRouter,
   auditLogs: auditLogsRouter,
   scheduled: scheduledRouter,
+  ptsControllers: ptsControllersRouter,
 });
 
 export type AppRouter = typeof appRouter;

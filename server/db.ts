@@ -5,7 +5,7 @@ import {
   pumps, pumpAttendants, shifts, shiftAttendants, transactions, transactionItems,
   products, fuelDeliveries, loyaltyCustomers, loyaltyTransactions, prepaidAccounts,
   creditAccounts, creditNotes, invoices, tickets, ticketComments, rttTransactions,
-  notifications, auditLogs
+  notifications, auditLogs, ptsControllers
 } from "../drizzle/schema";
 import { ENV } from './_core/env';
 import { encrypt, safeDecrypt } from './_core/crypto';
@@ -708,4 +708,48 @@ export async function getAuditLogs(opts: { stationId?: number; userId?: number; 
     .orderBy(desc(auditLogs.createdAt))
     .limit(opts.limit ?? 100)
     .offset(opts.offset ?? 0);
+}
+
+// ─── PTS Controllers ──────────────────────────────────────────────────────────
+
+export async function getPtsControllerByPtsId(ptsId: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const rows = await db.select().from(ptsControllers).where(eq(ptsControllers.ptsId, ptsId)).limit(1);
+  return rows[0];
+}
+
+export async function getAllPtsControllers() {
+  const db = await getDb();
+  if (!db) return [];
+  return db.select().from(ptsControllers).orderBy(ptsControllers.ptsId);
+}
+
+export async function upsertPtsController(data: { ptsId: string; stationId: number; label?: string | null; isActive?: boolean }) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  return db.insert(ptsControllers).values({
+    ptsId: data.ptsId,
+    stationId: data.stationId,
+    label: data.label ?? null,
+    isActive: data.isActive ?? true,
+  }).onDuplicateKeyUpdate({
+    set: {
+      stationId: data.stationId,
+      label: data.label ?? null,
+      isActive: data.isActive ?? true,
+    },
+  });
+}
+
+export async function updatePtsController(id: number, data: Partial<typeof ptsControllers.$inferInsert>) {
+  const db = await getDb();
+  if (!db) throw new Error("DB not available");
+  return db.update(ptsControllers).set(data).where(eq(ptsControllers.id, id));
+}
+
+export async function touchPtsControllerLastSeen(ptsId: string) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(ptsControllers).set({ lastSeenAt: new Date() }).where(eq(ptsControllers.ptsId, ptsId)).catch(() => {});
 }
