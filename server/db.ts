@@ -169,10 +169,42 @@ export async function getPumpsForStation(stationId: number) {
   return db.select().from(pumps).where(eq(pumps.stationId, stationId)).orderBy(pumps.name);
 }
 
+export async function getPumpByStationAndNumber(stationId: number, pumpNumber: number) {
+  const db = await getDb();
+  if (!db) return undefined;
+  // PTS uses 1-based pump numbers; match by ordering position or name suffix
+  const all = await db.select().from(pumps)
+    .where(eq(pumps.stationId, stationId))
+    .orderBy(pumps.id);
+  // Try exact name match first ("Pump 1", "PUMP1", "1"), then fall back to positional index
+  type PumpRow = typeof all[number];
+  const byName = all.find((p: PumpRow) =>
+    p.name === `Pump ${pumpNumber}` ||
+    p.name === `PUMP${pumpNumber}` ||
+    p.name === String(pumpNumber)
+  );
+  return byName ?? all[pumpNumber - 1];
+}
+
 export async function updatePumpStatus(pumpId: number, status: typeof pumps.$inferSelect['status']) {
   const db = await getDb();
   if (!db) throw new Error('DB not available');
   return db.update(pumps).set({ status }).where(eq(pumps.id, pumpId));
+}
+
+export async function updatePumpTotalizer(pumpId: number, totalizer: string) {
+  const db = await getDb();
+  if (!db) return;
+  await db.update(pumps).set({ totalizer }).where(eq(pumps.id, pumpId));
+}
+
+export async function getTransactionByPtsId(ptsTransactionId: string) {
+  const db = await getDb();
+  if (!db) return undefined;
+  const result = await db.select().from(transactions)
+    .where(eq(transactions.ptsTransactionId, ptsTransactionId))
+    .limit(1);
+  return result[0];
 }
 
 // ─── Attendant Queries ────────────────────────────────────────────────────────
