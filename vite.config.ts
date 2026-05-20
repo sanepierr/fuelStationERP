@@ -4,7 +4,15 @@ import react from "@vitejs/plugin-react";
 import fs from "node:fs";
 import path from "node:path";
 import { defineConfig, type Plugin, type ViteDevServer } from "vite";
-import { vitePluginManusRuntime } from "vite-plugin-manus-runtime";
+
+// vite-plugin-manus-runtime is only available in the Manus dev environment.
+let vitePluginManusRuntime: () => Plugin = () => ({ name: "manus-runtime-stub" });
+try {
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  ({ vitePluginManusRuntime } = await import("vite-plugin-manus-runtime"));
+} catch {
+  // not installed — safe to skip in production
+}
 
 // =============================================================================
 // Manus Debug Collector - Vite Plugin
