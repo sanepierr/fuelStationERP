@@ -224,41 +224,47 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
             </div>
           </SidebarHeader>
 
-          <SidebarContent className="py-2 scrollbar-thin overflow-y-auto">
-            {/* Tank Alerts Banner */}
-            {!isCollapsed && dashStats && (dashStats.tankAlerts ?? 0) > 0 && (
-              <div className="mx-2 mb-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center gap-2">
-                <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
-                <span className="text-xs text-amber-600">{dashStats.tankAlerts ?? 0} tank alert{(dashStats.tankAlerts ?? 0) > 1 ? 's' : ''}</span>
-              </div>
-            )}
+          <SidebarContent className="overflow-y-auto">
+            <div className="flex flex-col py-2">
+              {/* Tank Alerts Banner */}
+              {!isCollapsed && dashStats && (dashStats.tankAlerts ?? 0) > 0 && (
+                <div className="mx-3 mb-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center gap-2">
+                  <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                  <span className="text-xs text-amber-600">{dashStats.tankAlerts ?? 0} tank alert{(dashStats.tankAlerts ?? 0) > 1 ? 's' : ''}</span>
+                </div>
+              )}
 
-            {navGroups.map((group) => (
-              // eslint-disable-next-line react/jsx-key
-              <SidebarGroup key={group.label} className="py-0">
-                <SidebarGroupLabel className="text-xs text-muted-foreground/60 uppercase tracking-wider px-3 py-1.5">
-                  {group.label}
-                </SidebarGroupLabel>
-                <SidebarMenu className="px-2">
-                  {group.items.map((item) => {
-                    const isActive = location === item.path || (item.path !== '/' && location.startsWith(item.path));
-                    return (
-                      <SidebarMenuItem key={item.path}>
+              {navGroups.map((group, gi) => (
+                <div key={group.label} className={gi > 0 ? "mt-4" : ""}>
+                  {!isCollapsed && (
+                    <p className="text-[10px] font-semibold text-sidebar-foreground/35 uppercase tracking-widest px-4 mb-1">
+                      {group.label}
+                    </p>
+                  )}
+                  <div className="flex flex-col gap-0.5 px-2">
+                    {group.items.map((item) => {
+                      const isActive = location === item.path || (item.path !== '/' && location.startsWith(item.path));
+                      return (
                         <SidebarMenuButton
+                          key={item.path}
                           isActive={isActive}
                           onClick={() => navigate(item.path)}
                           tooltip={item.label}
-                          className={`h-9 text-sm transition-all ${isActive ? 'bg-primary/15 text-primary font-medium' : 'text-sidebar-foreground/80 hover:text-sidebar-foreground hover:bg-sidebar-accent'}`}
+                          className={`h-8 w-full rounded-md text-sm transition-all flex items-center gap-2 px-2 ${
+                            isActive
+                              ? 'bg-white/15 text-white font-medium'
+                              : 'text-sidebar-foreground/65 hover:text-sidebar-foreground hover:bg-white/8'
+                          }`}
                         >
-                          <item.icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-primary' : ''}`} />
-                          <span>{item.label}</span>
+                          <item.icon className={`h-4 w-4 shrink-0 ${isActive ? 'text-white' : 'text-sidebar-foreground/50'}`} />
+                          {!isCollapsed && <span className="truncate">{item.label}</span>}
                         </SidebarMenuButton>
-                      </SidebarMenuItem>
-                    );
-                  })}
-                </SidebarMenu>
-              </SidebarGroup>
-            ))}
+                      );
+                    })}
+                  </div>
+                </div>
+              ))}
+            </div>
           </SidebarContent>
 
           <SidebarFooter className="border-t border-sidebar-border p-3">
