@@ -81,7 +81,7 @@ export default function Stations() {
                     <Building2 className="w-5 h-5 text-primary" />
                   </div>
                   <div className="flex items-center gap-2">
-                    {station.hikVisionHost ? <span title="Hikvision Connected"><Wifi className="w-3.5 h-3.5 text-emerald-400" /></span> : <WifiOff className="w-3.5 h-3.5 text-muted-foreground" />}
+                    {station.hikVisionHost ? <span title="Hikvision Connected"><Wifi className="w-3.5 h-3.5 text-emerald-600" /></span> : <WifiOff className="w-3.5 h-3.5 text-muted-foreground" />}
                     <Badge variant="outline" className={station.status === 'active' ? 'badge-active' : station.status === 'maintenance' ? 'badge-warning' : 'badge-inactive'}>
                       {station.status}
                     </Badge>
@@ -103,7 +103,7 @@ export default function Stations() {
                 </div>
                 <div className="mt-3 pt-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground">
                   <span>TIN: {station.tinNumber || 'N/A'}</span>
-                  {station.atgHost && <span className="text-emerald-400">ATG Connected</span>}
+                  {station.atgHost && <span className="text-emerald-600">ATG Connected</span>}
                 </div>
               </CardContent>
             </Card>

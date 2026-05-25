@@ -69,7 +69,7 @@ export default function Pumps() {
               <CardContent className="p-5">
                 <div className="flex items-start justify-between mb-4">
                   <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${pump.status === 'active' ? 'bg-emerald-500/20' : pump.status === 'fault' ? 'bg-red-500/20' : 'bg-muted'}`}>
-                    <Fuel className={`w-6 h-6 ${pump.status === 'active' ? 'text-emerald-400' : pump.status === 'fault' ? 'text-red-400' : 'text-muted-foreground'}`} />
+                    <Fuel className={`w-6 h-6 ${pump.status === 'active' ? 'text-emerald-600' : pump.status === 'fault' ? 'text-red-600' : 'text-muted-foreground'}`} />
                   </div>
                   <Badge variant="outline" className={statusColors[pump.status] || 'badge-inactive'}>{pump.status}</Badge>
                 </div>

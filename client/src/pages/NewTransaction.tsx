@@ -12,12 +12,12 @@ import { toast } from "sonner";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 const paymentMethods = [
-  { id: 'cash', label: 'Cash', icon: Banknote, color: 'text-emerald-400', bg: 'bg-emerald-500/20 border-emerald-500/40' },
-  { id: 'mtn_momo', label: 'MTN MoMo', icon: Smartphone, color: 'text-yellow-400', bg: 'bg-yellow-500/20 border-yellow-500/40' },
-  { id: 'airtel_money', label: 'Airtel Money', icon: Smartphone, color: 'text-red-400', bg: 'bg-red-500/20 border-red-500/40' },
-  { id: 'visa', label: 'Visa/Card', icon: CreditCard, color: 'text-blue-400', bg: 'bg-blue-500/20 border-blue-500/40' },
-  { id: 'credit', label: 'Credit', icon: CreditCard, color: 'text-purple-400', bg: 'bg-purple-500/20 border-purple-500/40' },
-  { id: 'prepaid', label: 'Prepaid', icon: CreditCard, color: 'text-cyan-400', bg: 'bg-cyan-500/20 border-cyan-500/40' },
+  { id: 'cash', label: 'Cash', icon: Banknote, color: 'text-emerald-600', bg: 'bg-emerald-500/20 border-emerald-500/40' },
+  { id: 'mtn_momo', label: 'MTN MoMo', icon: Smartphone, color: 'text-yellow-600', bg: 'bg-yellow-500/20 border-yellow-500/40' },
+  { id: 'airtel_money', label: 'Airtel Money', icon: Smartphone, color: 'text-red-600', bg: 'bg-red-500/20 border-red-500/40' },
+  { id: 'visa', label: 'Visa/Card', icon: CreditCard, color: 'text-blue-600', bg: 'bg-blue-500/20 border-blue-500/40' },
+  { id: 'credit', label: 'Credit', icon: CreditCard, color: 'text-purple-600', bg: 'bg-purple-500/20 border-purple-500/40' },
+  { id: 'prepaid', label: 'Prepaid', icon: CreditCard, color: 'text-cyan-700', bg: 'bg-cyan-500/20 border-cyan-500/40' },
 ];
 
 export default function NewTransaction() {
@@ -86,7 +86,7 @@ export default function NewTransaction() {
       {activeShift && (
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-emerald-500/10 border border-emerald-500/20">
           <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-          <span className="text-xs text-emerald-400">Active Shift: {activeShift.shiftName}</span>
+          <span className="text-xs text-emerald-600">Active Shift: {activeShift.shiftName}</span>
         </div>
       )}
 
@@ -171,7 +171,7 @@ export default function NewTransaction() {
           {(paymentMethod === 'mtn_momo' || paymentMethod === 'airtel_money') && (
             <div className="space-y-3">
               <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg p-3">
-                <p className="text-xs text-amber-400 font-medium mb-1">
+                <p className="text-xs text-amber-600 font-medium mb-1">
                   {paymentMethod === 'mtn_momo' ? '📱 MTN Mobile Money' : '📱 Airtel Money'} Payment
                 </p>
                 <p className="text-xs text-muted-foreground">
@@ -207,10 +207,10 @@ export default function NewTransaction() {
       {/* Receipt Dialog */}
       <Dialog open={!!receipt} onOpenChange={() => setReceipt(null)}>
         <DialogContent className="bg-card border-border max-w-sm">
-          <DialogHeader><DialogTitle className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-emerald-400" />Transaction Complete</DialogTitle></DialogHeader>
+          <DialogHeader><DialogTitle className="flex items-center gap-2"><CheckCircle className="w-5 h-5 text-emerald-600" />Transaction Complete</DialogTitle></DialogHeader>
           <div className="space-y-4">
             <div className="text-center p-4 bg-emerald-500/10 border border-emerald-500/20 rounded-xl">
-              <p className="text-emerald-400 font-bold text-lg">UGX {parseFloat(totalAmount).toLocaleString()}</p>
+              <p className="text-emerald-600 font-bold text-lg">UGX {parseFloat(totalAmount).toLocaleString()}</p>
               <p className="text-xs text-muted-foreground mt-1">Payment Received</p>
             </div>
             <div className="space-y-2 text-sm">

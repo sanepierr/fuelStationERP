@@ -196,14 +196,14 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
   }, [isResizing, setSidebarWidth]);
 
   const roleColors: Record<string, string> = {
-    admin: "bg-red-500/20 text-red-400",
-    owner: "bg-purple-500/20 text-purple-400",
-    manager: "bg-blue-500/20 text-blue-400",
-    supervisor: "bg-cyan-500/20 text-cyan-400",
-    accountant: "bg-green-500/20 text-green-400",
+    admin: "bg-red-500/20 text-red-600",
+    owner: "bg-purple-500/20 text-purple-600",
+    manager: "bg-blue-500/20 text-blue-600",
+    supervisor: "bg-cyan-500/20 text-cyan-700",
+    accountant: "bg-green-500/20 text-green-600",
     technician: "bg-orange-500/20 text-orange-400",
-    attendant: "bg-yellow-500/20 text-yellow-400",
-    user: "bg-gray-500/20 text-gray-400",
+    attendant: "bg-yellow-500/20 text-yellow-600",
+    user: "bg-gray-500/20 text-gray-500",
   };
 
   return (
@@ -228,8 +228,8 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
             {/* Tank Alerts Banner */}
             {!isCollapsed && dashStats && (dashStats.tankAlerts ?? 0) > 0 && (
               <div className="mx-2 mb-2 px-3 py-2 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center gap-2">
-                <AlertTriangle className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                <span className="text-xs text-amber-400">{dashStats.tankAlerts ?? 0} tank alert{(dashStats.tankAlerts ?? 0) > 1 ? 's' : ''}</span>
+                <AlertTriangle className="w-3.5 h-3.5 text-amber-600 shrink-0" />
+                <span className="text-xs text-amber-600">{dashStats.tankAlerts ?? 0} tank alert{(dashStats.tankAlerts ?? 0) > 1 ? 's' : ''}</span>
               </div>
             )}
 
@@ -313,10 +313,10 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
             <div className="hidden md:flex items-center gap-2">
               <div className="flex items-center gap-1.5 bg-emerald-500/10 border border-emerald-500/20 rounded-full px-3 py-1">
                 <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-xs text-emerald-400 font-medium">{dashStats.totalStations} Stations</span>
+                <span className="text-xs text-emerald-600 font-medium">{dashStats.totalStations} Stations</span>
               </div>
               <div className="flex items-center gap-1.5 bg-blue-500/10 border border-blue-500/20 rounded-full px-3 py-1">
-                <span className="text-xs text-blue-400 font-medium">{dashStats.activeShifts} Active Shifts</span>
+                <span className="text-xs text-blue-600 font-medium">{dashStats.activeShifts} Active Shifts</span>
               </div>
             </div>
           )}
@@ -345,9 +345,9 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
                   {tankAlerts?.map(alert => (
                     <DropdownMenuItem key={alert.id} className="flex flex-col items-start gap-0.5 px-3 py-2 cursor-pointer" onClick={() => navigate('/tanks')}>
                       <div className="flex items-center gap-2 w-full">
-                        <AlertTriangle className={`w-3.5 h-3.5 shrink-0 ${alert.status === 'critical' ? 'text-red-400' : 'text-yellow-400'}`} />
+                        <AlertTriangle className={`w-3.5 h-3.5 shrink-0 ${alert.status === 'critical' ? 'text-red-600' : 'text-yellow-600'}`} />
                         <span className="text-sm font-medium truncate">{alert.stationName} — {alert.fuelTypeName}</span>
-                        <span className={`ml-auto text-xs px-1.5 py-0.5 rounded-full ${alert.status === 'critical' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>{alert.status}</span>
+                        <span className={`ml-auto text-xs px-1.5 py-0.5 rounded-full ${alert.status === 'critical' ? 'bg-red-500/20 text-red-600' : 'bg-yellow-500/20 text-yellow-600'}`}>{alert.status}</span>
                       </div>
                       <span className="text-xs text-muted-foreground ml-5">{alert.name} — {Number(alert.currentLevel).toLocaleString()}L remaining</span>
                     </DropdownMenuItem>

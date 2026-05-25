@@ -9,10 +9,10 @@ import { AlertTriangle, CheckCircle, Fuel, Loader2, Power, PowerOff, Wrench, XCi
 import { toast } from "sonner";
 
 const statusConfig: Record<string, { label: string; color: string; icon: React.ReactNode }> = {
-  active:      { label: "Active",      color: "bg-green-500/20 text-green-400 border-green-500/30",  icon: <CheckCircle className="w-3 h-3" /> },
-  inactive:    { label: "Inactive",    color: "bg-gray-500/20 text-gray-400 border-gray-500/30",    icon: <PowerOff className="w-3 h-3" /> },
-  maintenance: { label: "Maintenance", color: "bg-yellow-500/20 text-yellow-400 border-yellow-500/30", icon: <Wrench className="w-3 h-3" /> },
-  fault:       { label: "Fault",       color: "bg-red-500/20 text-red-400 border-red-500/30",       icon: <XCircle className="w-3 h-3" /> },
+  active:      { label: "Active",      color: "bg-green-500/20 text-green-600 border-green-500/30",  icon: <CheckCircle className="w-3 h-3" /> },
+  inactive:    { label: "Inactive",    color: "bg-gray-500/20 text-gray-500 border-gray-500/30",    icon: <PowerOff className="w-3 h-3" /> },
+  maintenance: { label: "Maintenance", color: "bg-yellow-500/20 text-yellow-600 border-yellow-500/30", icon: <Wrench className="w-3 h-3" /> },
+  fault:       { label: "Fault",       color: "bg-red-500/20 text-red-600 border-red-500/30",       icon: <XCircle className="w-3 h-3" /> },
 };
 
 export default function PumpControl() {
@@ -60,9 +60,9 @@ export default function PumpControl() {
       <div className="grid grid-cols-4 gap-4">
         {[
           { label: "Total Pumps", value: pumps.length, color: "text-foreground" },
-          { label: "Active", value: activeCount, color: "text-green-400" },
-          { label: "Faults", value: faultCount, color: faultCount > 0 ? "text-red-400" : "text-muted-foreground" },
-          { label: "In Maintenance", value: pumps.filter(p => p.status === "maintenance").length, color: "text-yellow-400" },
+          { label: "Active", value: activeCount, color: "text-green-600" },
+          { label: "Faults", value: faultCount, color: faultCount > 0 ? "text-red-600" : "text-muted-foreground" },
+          { label: "In Maintenance", value: pumps.filter(p => p.status === "maintenance").length, color: "text-yellow-600" },
         ].map(stat => (
           <Card key={stat.label}>
             <CardContent className="pt-4 pb-3">
@@ -74,7 +74,7 @@ export default function PumpControl() {
       </div>
 
       {!isManager && (
-        <div className="flex items-center gap-2 px-4 py-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-400 text-sm">
+        <div className="flex items-center gap-2 px-4 py-3 bg-yellow-500/10 border border-yellow-500/20 rounded-lg text-yellow-600 text-sm">
           <AlertTriangle className="w-4 h-4 flex-shrink-0" />
           You have read-only access. Manager role or above is required to change pump status.
         </div>

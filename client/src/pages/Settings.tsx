@@ -163,7 +163,7 @@ export default function Settings() {
                 <div className="flex items-center gap-3">
                   <Switch checked={pts2.pts2SyncEnabled} onCheckedChange={v => setPts2(p => ({ ...p, pts2SyncEnabled: v }))} id="pts2sync" />
                   <Label htmlFor="pts2sync">Enable automatic transaction sync</Label>
-                  {pts2.pts2SyncEnabled && <Badge className="bg-green-500/20 text-green-400 border-green-500/30 text-xs">Sync ON</Badge>}
+                  {pts2.pts2SyncEnabled && <Badge className="bg-green-500/20 text-green-600 border-green-500/30 text-xs">Sync ON</Badge>}
                 </div>
                 {(station as any)?.pts2LastSync && (
                   <p className="text-xs text-muted-foreground">Last sync: {new Date((station as any).pts2LastSync).toLocaleString()}</p>

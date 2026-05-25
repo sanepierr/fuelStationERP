@@ -59,11 +59,11 @@ export default function Loyalty() {
           <p className="text-xs text-muted-foreground">Total Members</p>
         </CardContent></Card>
         <Card className="bg-card border-border"><CardContent className="p-4 text-center">
-          <p className="text-2xl font-bold text-emerald-400">{totalPoints.toLocaleString()}</p>
+          <p className="text-2xl font-bold text-emerald-600">{totalPoints.toLocaleString()}</p>
           <p className="text-xs text-muted-foreground">Total Points Outstanding</p>
         </CardContent></Card>
         <Card className="bg-card border-border"><CardContent className="p-4 text-center">
-          <p className="text-2xl font-bold text-blue-400">{customers?.filter(c => c.nfcCardId || c.rfidCardId).length || 0}</p>
+          <p className="text-2xl font-bold text-blue-600">{customers?.filter(c => c.nfcCardId || c.rfidCardId).length || 0}</p>
           <p className="text-xs text-muted-foreground">NFC/RFID Cards Issued</p>
         </CardContent></Card>
       </div>
@@ -103,8 +103,8 @@ export default function Loyalty() {
                   </td>
                   <td className="px-4 py-3 text-right">
                     <div className="flex items-center justify-end gap-1">
-                      <Star className="w-3 h-3 text-amber-400" />
-                      <span className="font-bold text-amber-400">{(c.totalPoints || 0).toLocaleString()}</span>
+                      <Star className="w-3 h-3 text-amber-600" />
+                      <span className="font-bold text-amber-600">{(c.totalPoints || 0).toLocaleString()}</span>
                     </div>
                   </td>
                   <td className="px-4 py-3 text-right text-foreground">UGX {parseFloat(c.totalFuelPurchased || '0').toLocaleString()}</td>

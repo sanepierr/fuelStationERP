@@ -13,7 +13,7 @@ import {
 import { useLocation } from "wouter";
 import { useMemo, useState } from "react";
 
-const COLORS = ['#f97316', '#3b82f6', '#10b981', '#8b5cf6', '#f59e0b'];
+const COLORS = ['#2563eb', '#0ea5e9', '#10b981', '#8b5cf6', '#f59e0b'];
 
 function formatUGX(amount: number) {
   if (amount >= 1000000) return `UGX ${(amount / 1000000).toFixed(1)}M`;
@@ -38,7 +38,7 @@ function StatCard({ title, value, subtitle, icon: Icon, color, trend }: {
           </div>
         </div>
         {trend && (
-          <div className="mt-3 flex items-center gap-1 text-emerald-400 text-xs">
+          <div className="mt-3 flex items-center gap-1 text-emerald-600 text-xs">
             <ArrowUpRight className="w-3 h-3" />
             <span>{trend}</span>
           </div>
@@ -58,11 +58,11 @@ function TankGaugeWidget({ tank }: { tank: any }) {
     maintenance: 'bg-gray-500',
   };
   const textColors: Record<string, string> = {
-    normal: 'text-emerald-400',
-    low: 'text-amber-400',
-    critical: 'text-red-400',
-    overfill: 'text-blue-400',
-    maintenance: 'text-gray-400',
+    normal: 'text-emerald-600',
+    low: 'text-amber-600',
+    critical: 'text-red-600',
+    overfill: 'text-blue-600',
+    maintenance: 'text-gray-500',
   };
 
   return (
@@ -79,7 +79,7 @@ function TankGaugeWidget({ tank }: { tank: any }) {
       <div className="flex-1 min-w-0">
         <p className="text-xs font-medium text-foreground truncate">{tank.name}</p>
         <p className="text-xs text-muted-foreground">{parseFloat(tank.currentLevel).toLocaleString()}L / {parseFloat(tank.capacity).toLocaleString()}L</p>
-        <span className={`text-xs font-medium ${textColors[tank.status] || 'text-emerald-400'}`}>
+        <span className={`text-xs font-medium ${textColors[tank.status] || 'text-emerald-600'}`}>
           {tank.status.toUpperCase()}
         </span>
       </div>
@@ -159,7 +159,7 @@ export default function Dashboard() {
           value={statsLoading ? '...' : String(stats?.totalStations || 0)}
           subtitle="Connected to portal"
           icon={Building2}
-          color="bg-blue-500/20 text-blue-400"
+          color="bg-blue-100 text-blue-600"
           trend="All systems operational"
         />
         <StatCard
@@ -167,7 +167,7 @@ export default function Dashboard() {
           value={statsLoading ? '...' : formatUGX(stats?.todayRevenue || 0)}
           subtitle={`${stats?.todayTransactions || 0} transactions`}
           icon={TrendingUp}
-          color="bg-emerald-500/20 text-emerald-400"
+          color="bg-emerald-100 text-emerald-600"
           trend="Live tracking"
         />
         <StatCard
@@ -175,14 +175,14 @@ export default function Dashboard() {
           value={statsLoading ? '...' : String(stats?.activeShifts || 0)}
           subtitle="Across all stations"
           icon={Activity}
-          color="bg-primary/20 text-primary"
+          color="bg-primary/15 text-primary"
         />
         <StatCard
           title="Tank Alerts"
           value={statsLoading ? '...' : String(stats?.tankAlerts || 0)}
           subtitle={stats?.tankAlerts ? 'Requires attention' : 'All levels normal'}
           icon={AlertTriangle}
-          color={stats?.tankAlerts ? 'bg-amber-500/20 text-amber-400' : 'bg-emerald-500/20 text-emerald-400'}
+          color={stats?.tankAlerts ? 'bg-amber-100 text-amber-600' : 'bg-emerald-100 text-emerald-600'}
         />
       </div>
 
@@ -226,7 +226,7 @@ export default function Dashboard() {
                   </div>
                   <div className="text-center">
                     <p className="text-xs text-muted-foreground">Alerts</p>
-                    <p className={`text-sm font-bold ${station.tankAlerts > 0 ? 'text-amber-400' : 'text-emerald-400'}`}>
+                    <p className={`text-sm font-bold ${station.tankAlerts > 0 ? 'text-amber-600' : 'text-emerald-600'}`}>
                       {station.tankAlerts}
                     </p>
                   </div>
@@ -333,11 +333,11 @@ export default function Dashboard() {
           </CardHeader>
           <CardContent className="space-y-3">
             {[
-              { label: 'Today Revenue', value: formatUGX(txStats?.todayTotal || 0), icon: TrendingUp, color: 'text-emerald-400' },
-              { label: 'Today Transactions', value: String(txStats?.todayCount || 0), icon: Receipt, color: 'text-blue-400' },
+              { label: 'Today Revenue', value: formatUGX(txStats?.todayTotal || 0), icon: TrendingUp, color: 'text-emerald-600' },
+              { label: 'Today Transactions', value: String(txStats?.todayCount || 0), icon: Receipt, color: 'text-blue-600' },
               { label: 'Fuel Dispensed', value: `${(txStats?.todayVolume || 0).toFixed(0)}L`, icon: Fuel, color: 'text-primary' },
-              { label: 'Week Revenue', value: formatUGX(txStats?.weekTotal || 0), icon: TrendingUp, color: 'text-purple-400' },
-              { label: 'Month Revenue', value: formatUGX(txStats?.monthTotal || 0), icon: TrendingUp, color: 'text-cyan-400' },
+              { label: 'Week Revenue', value: formatUGX(txStats?.weekTotal || 0), icon: TrendingUp, color: 'text-purple-600' },
+              { label: 'Month Revenue', value: formatUGX(txStats?.monthTotal || 0), icon: TrendingUp, color: 'text-cyan-700' },
             ].map(item => (
               <div key={item.label} className="flex items-center justify-between py-2 border-b border-border last:border-0">
                 <div className="flex items-center gap-2">

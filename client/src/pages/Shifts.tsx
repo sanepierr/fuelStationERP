@@ -68,7 +68,7 @@ export default function Shifts() {
               <div className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse" />
                 <div>
-                  <p className="font-semibold text-emerald-400">{activeShift.shiftName} — Active</p>
+                  <p className="font-semibold text-emerald-600">{activeShift.shiftName} — Active</p>
                   <p className="text-xs text-muted-foreground">Started: {new Date(activeShift.startTime).toLocaleString()} </p>
                 </div>
               </div>

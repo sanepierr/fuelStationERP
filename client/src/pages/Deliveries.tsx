@@ -12,7 +12,7 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 
 const statusColors: Record<string, string> = {
-  ordered: 'badge-info', dispatched: 'badge-warning', in_transit: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
+  ordered: 'badge-info', dispatched: 'badge-warning', in_transit: 'bg-blue-500/20 text-blue-600 border border-blue-500/30',
   delivered: 'badge-active', verified: 'bg-emerald-600/20 text-emerald-300 border border-emerald-600/30', cancelled: 'badge-inactive',
 };
 
@@ -103,7 +103,7 @@ export default function Deliveries() {
                   <div className="flex items-center gap-2">
                     <div className="text-right text-xs text-muted-foreground">
                       <p>{new Date(d.createdAt).toLocaleDateString()}</p>
-                      {d.receivedVolume && <p className="text-emerald-400">{parseFloat(d.receivedVolume).toLocaleString()}L received</p>}
+                      {d.receivedVolume && <p className="text-emerald-600">{parseFloat(d.receivedVolume).toLocaleString()}L received</p>}
                     </div>
                     {d.status !== 'verified' && d.status !== 'cancelled' && (
                       <Button size="sm" variant="outline" className="gap-1 text-xs" onClick={() => setUpdateOpen(d)}>

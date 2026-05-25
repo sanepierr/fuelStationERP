@@ -93,11 +93,11 @@ export default function StationMap() {
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Active</span>
-                <span className="font-bold text-emerald-400">{stations?.filter(s => s.status === 'active').length || 0}</span>
+                <span className="font-bold text-emerald-600">{stations?.filter(s => s.status === 'active').length || 0}</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Inactive</span>
-                <span className="font-bold text-red-400">{stations?.filter(s => s.status !== 'active').length || 0}</span>
+                <span className="font-bold text-red-600">{stations?.filter(s => s.status !== 'active').length || 0}</span>
               </div>
             </CardContent>
           </Card>
@@ -108,7 +108,7 @@ export default function StationMap() {
                 <CardContent className="p-3">
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-2">
-                      <MapPin className={`w-4 h-4 ${station.status === 'active' ? 'text-emerald-400' : 'text-red-400'}`} />
+                      <MapPin className={`w-4 h-4 ${station.status === 'active' ? 'text-emerald-600' : 'text-red-600'}`} />
                       <div>
                         <p className="text-sm font-medium text-foreground">{station.name}</p>
                         <p className="text-xs text-muted-foreground">{station.code}</p>

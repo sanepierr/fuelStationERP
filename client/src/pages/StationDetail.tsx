@@ -61,11 +61,11 @@ export default function StationDetail() {
               <CardHeader><CardTitle className="text-sm">Integrations</CardTitle></CardHeader>
               <CardContent className="space-y-3">
                 <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
-                  <div className="flex items-center gap-2"><Camera className="w-4 h-4 text-blue-400" /><span className="text-sm">Hikvision CCTV</span></div>
+                  <div className="flex items-center gap-2"><Camera className="w-4 h-4 text-blue-600" /><span className="text-sm">Hikvision CCTV</span></div>
                   <Badge variant="outline" className={station.hikVisionHost ? 'badge-active' : 'badge-inactive'}>{station.hikVisionHost ? 'Connected' : 'Not Set'}</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
-                  <div className="flex items-center gap-2"><Gauge className="w-4 h-4 text-emerald-400" /><span className="text-sm">ATG System</span></div>
+                  <div className="flex items-center gap-2"><Gauge className="w-4 h-4 text-emerald-600" /><span className="text-sm">ATG System</span></div>
                   <Badge variant="outline" className={station.atgHost ? 'badge-active' : 'badge-inactive'}>{station.atgHost ? station.atgHost : 'Not Set'}</Badge>
                 </div>
                 <div className="flex items-center justify-between p-3 rounded-lg bg-secondary/50">
@@ -96,7 +96,7 @@ export default function StationDetail() {
                       <span>{Math.round(pct)}%</span>
                       <span>{parseFloat(tank.capacity).toLocaleString()}L</span>
                     </div>
-                    {tank.atgSensorId && <p className="text-xs text-emerald-400 mt-2">ATG: {tank.atgSensorId}</p>}
+                    {tank.atgSensorId && <p className="text-xs text-emerald-600 mt-2">ATG: {tank.atgSensorId}</p>}
                   </CardContent>
                 </Card>
               );
@@ -162,7 +162,7 @@ export default function StationDetail() {
         <TabsContent value="cameras">
           <div className="space-y-4">
             <Card className="bg-card border-border">
-              <CardHeader><CardTitle className="text-sm flex items-center gap-2"><Camera className="w-4 h-4 text-blue-400" />Hikvision CCTV Integration</CardTitle></CardHeader>
+              <CardHeader><CardTitle className="text-sm flex items-center gap-2"><Camera className="w-4 h-4 text-blue-600" />Hikvision CCTV Integration</CardTitle></CardHeader>
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div><p className="text-muted-foreground text-xs">Host / IP</p><p className="font-mono font-medium text-foreground">{station.hikVisionHost || 'Not configured'}</p></div>
@@ -173,7 +173,7 @@ export default function StationDetail() {
                 {station.hikVisionHost ? (
                   <div className="space-y-3">
                     <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-3">
-                      <p className="text-xs text-blue-400 font-medium mb-1">Live Camera Feeds</p>
+                      <p className="text-xs text-blue-600 font-medium mb-1">Live Camera Feeds</p>
                       <p className="text-xs text-muted-foreground">Camera streams are accessible via the Hikvision NVR web interface. Ensure your network has direct access to the NVR IP.</p>
                     </div>
                     <div className="grid grid-cols-2 gap-3">

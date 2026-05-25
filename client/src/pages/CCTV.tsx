@@ -13,9 +13,9 @@ import { AlertTriangle, Camera, CheckCircle, Film, Plus, RefreshCw, Star, Trash2
 import { toast } from "sonner";
 
 const statusColor: Record<string, string> = {
-  online: "bg-green-500/20 text-green-400 border-green-500/30",
-  offline: "bg-gray-500/20 text-gray-400 border-gray-500/30",
-  fault: "bg-red-500/20 text-red-400 border-red-500/30",
+  online: "bg-green-500/20 text-green-600 border-green-500/30",
+  offline: "bg-gray-500/20 text-gray-500 border-gray-500/30",
+  fault: "bg-red-500/20 text-red-600 border-red-500/30",
 };
 
 const statusIcon: Record<string, React.ReactNode> = {
@@ -164,7 +164,7 @@ export default function CCTV() {
                   {events.map(ev => (
                     <div key={ev.id} className="flex items-center justify-between px-4 py-3">
                       <div className="flex items-center gap-3">
-                        <Badge className={`text-xs border ${ev.isResolved ? "bg-green-500/10 text-green-400 border-green-500/20" : ev.eventType === "motion" ? "bg-yellow-500/10 text-yellow-400 border-yellow-500/20" : "bg-red-500/10 text-red-400 border-red-500/20"}`}>
+                        <Badge className={`text-xs border ${ev.isResolved ? "bg-green-500/10 text-green-600 border-green-500/20" : ev.eventType === "motion" ? "bg-yellow-500/10 text-yellow-600 border-yellow-500/20" : "bg-red-500/10 text-red-600 border-red-500/20"}`}>
                           {ev.eventType}
                         </Badge>
                         <div>
@@ -206,7 +206,7 @@ export default function CCTV() {
                         </div>
                       </div>
                       <div className="flex items-center gap-2">
-                        <Button variant="ghost" size="icon" className={`h-8 w-8 ${rec.isStarred ? "text-yellow-400" : "text-muted-foreground"}`} onClick={() => starRecording.mutate({ id: rec.id, isStarred: !rec.isStarred })}>
+                        <Button variant="ghost" size="icon" className={`h-8 w-8 ${rec.isStarred ? "text-yellow-600" : "text-muted-foreground"}`} onClick={() => starRecording.mutate({ id: rec.id, isStarred: !rec.isStarred })}>
                           <Star className="w-4 h-4" fill={rec.isStarred ? "currentColor" : "none"} />
                         </Button>
                         {isAdmin && (

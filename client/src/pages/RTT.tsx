@@ -66,13 +66,13 @@ export default function RTT() {
       <div className="grid grid-cols-3 gap-4">
         <Card className="bg-amber-500/10 border-amber-500/30">
           <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-1"><AlertTriangle className="w-4 h-4 text-amber-400" /><span className="text-xs text-muted-foreground">Total RTT Volume</span></div>
-            <p className="text-2xl font-bold text-amber-400">{totalRTT.toFixed(2)}L</p>
+            <div className="flex items-center gap-2 mb-1"><AlertTriangle className="w-4 h-4 text-amber-600" /><span className="text-xs text-muted-foreground">Total RTT Volume</span></div>
+            <p className="text-2xl font-bold text-amber-600">{totalRTT.toFixed(2)}L</p>
           </CardContent>
         </Card>
         <Card className="bg-card border-border">
           <CardContent className="p-4">
-            <div className="flex items-center gap-2 mb-1"><RefreshCw className="w-4 h-4 text-blue-400" /><span className="text-xs text-muted-foreground">Total Records</span></div>
+            <div className="flex items-center gap-2 mb-1"><RefreshCw className="w-4 h-4 text-blue-600" /><span className="text-xs text-muted-foreground">Total Records</span></div>
             <p className="text-2xl font-bold text-foreground">{rttRecords?.length || 0}</p>
           </CardContent>
         </Card>
@@ -105,7 +105,7 @@ export default function RTT() {
                 <tr key={r.id} className="border-b border-border/50 hover:bg-secondary/20">
                   <td className="px-4 py-3 text-muted-foreground text-xs">{new Date(r.createdAt).toLocaleString()}</td>
                   <td className="px-4 py-3 text-foreground">Tank #{r.tankId} / Pump #{r.pumpId}</td>
-                  <td className="px-4 py-3 text-right font-bold text-amber-400">{parseFloat(r.volume).toFixed(2)}L</td>
+                  <td className="px-4 py-3 text-right font-bold text-amber-600">{parseFloat(r.volume).toFixed(2)}L</td>
                   <td className="px-4 py-3 text-muted-foreground capitalize">{r.reason?.replace(/_/g, ' ')}</td>
                   <td className="px-4 py-3 text-muted-foreground">{r.technicianName || '—'}</td>
                   <td className="px-4 py-3"><Badge variant="outline" className={r.status === 'approved' ? 'badge-active' : r.status === 'pending' ? 'badge-warning' : 'badge-inactive'}>{r.status}</Badge></td>

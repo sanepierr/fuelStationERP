@@ -58,8 +58,8 @@ export default function ReceiptVerify() {
         {error && (
           <Card className="bg-red-500/10 border-red-500/30">
             <CardContent className="p-6 text-center">
-              <XCircle className="w-12 h-12 text-red-400 mx-auto mb-3" />
-              <h3 className="font-bold text-red-400 text-lg">Receipt Not Found</h3>
+              <XCircle className="w-12 h-12 text-red-600 mx-auto mb-3" />
+              <h3 className="font-bold text-red-600 text-lg">Receipt Not Found</h3>
               <p className="text-muted-foreground text-sm mt-1">No valid receipt found with number: <strong>{searchQuery}</strong></p>
               <p className="text-xs text-muted-foreground mt-2">This receipt may be invalid, tampered, or not issued by a FuelSync-registered station.</p>
             </CardContent>
@@ -70,9 +70,9 @@ export default function ReceiptVerify() {
           <Card className="bg-emerald-500/10 border-emerald-500/30">
             <CardContent className="p-6">
               <div className="flex items-center gap-3 mb-4">
-                <CheckCircle className="w-10 h-10 text-emerald-400 flex-shrink-0" />
+                <CheckCircle className="w-10 h-10 text-emerald-600 flex-shrink-0" />
                 <div>
-                  <h3 className="font-bold text-emerald-400 text-lg">Receipt Verified</h3>
+                  <h3 className="font-bold text-emerald-600 text-lg">Receipt Verified</h3>
                   <p className="text-xs text-muted-foreground">This receipt is authentic and URA-compliant</p>
                 </div>
               </div>
@@ -85,14 +85,14 @@ export default function ReceiptVerify() {
                   <div><p className="text-muted-foreground text-xs">Fuel Type</p><p className="font-medium text-foreground">{(receipt as any).fuelTypeName || receipt.transactionType}</p></div>
                   <div><p className="text-muted-foreground text-xs">Volume</p><p className="font-bold text-foreground">{receipt.fuelVolume ? parseFloat(receipt.fuelVolume).toFixed(2) : '—'}L</p></div>
                   <div><p className="text-muted-foreground text-xs">Unit Price</p><p className="font-medium text-foreground">UGX {receipt.pricePerUnit ? parseFloat(receipt.pricePerUnit).toLocaleString() : '—'}/L</p></div>
-                  <div><p className="text-muted-foreground text-xs">Amount Paid</p><p className="font-bold text-emerald-400 text-lg">UGX {parseFloat(receipt.totalAmount).toLocaleString()}</p></div>
+                  <div><p className="text-muted-foreground text-xs">Amount Paid</p><p className="font-bold text-emerald-600 text-lg">UGX {parseFloat(receipt.totalAmount).toLocaleString()}</p></div>
                   <div><p className="text-muted-foreground text-xs">Payment Method</p><Badge variant="outline" className="badge-info capitalize">{receipt.paymentMethod?.replace(/_/g, ' ')}</Badge></div>
                 </div>
 
                 <div className="flex items-center gap-2 bg-emerald-500/10 rounded-lg p-3 mt-2">
-                  <QrCode className="w-5 h-5 text-emerald-400 flex-shrink-0" />
+                  <QrCode className="w-5 h-5 text-emerald-600 flex-shrink-0" />
                   <div>
-                    <p className="text-xs font-bold text-emerald-400">URA Fiscal Receipt</p>
+                    <p className="text-xs font-bold text-emerald-600">URA Fiscal Receipt</p>
                     <p className="text-xs text-muted-foreground">TIN: {(receipt as any).stationTin || 'N/A'} · Verified by FuelSync Pro</p>
                   </div>
                 </div>

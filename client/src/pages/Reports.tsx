@@ -85,9 +85,9 @@ export default function Reports() {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
           {[
             { label: 'Total Revenue', value: `UGX ${totalSales.toLocaleString()}`, icon: TrendingUp, color: 'text-primary' },
-            { label: 'Total Volume', value: `${totalVolume.toLocaleString()}L`, icon: BarChart2, color: 'text-emerald-400' },
-            { label: 'Transactions', value: totalTransactions.toLocaleString(), icon: FileText, color: 'text-blue-400' },
-            { label: 'Avg per Txn', value: `UGX ${totalTransactions ? Math.round(totalSales / totalTransactions).toLocaleString() : '0'}`, icon: TrendingUp, color: 'text-amber-400' },
+            { label: 'Total Volume', value: `${totalVolume.toLocaleString()}L`, icon: BarChart2, color: 'text-emerald-600' },
+            { label: 'Transactions', value: totalTransactions.toLocaleString(), icon: FileText, color: 'text-blue-600' },
+            { label: 'Avg per Txn', value: `UGX ${totalTransactions ? Math.round(totalSales / totalTransactions).toLocaleString() : '0'}`, icon: TrendingUp, color: 'text-amber-600' },
           ].map(kpi => (
             <Card key={kpi.label} className="bg-card border-border">
               <CardContent className="p-4">

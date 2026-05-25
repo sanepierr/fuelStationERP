@@ -12,11 +12,11 @@ import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 
 const categoryColors: Record<string, string> = {
-  gas: 'bg-blue-500/20 text-blue-400 border border-blue-500/30',
-  lubes: 'bg-amber-500/20 text-amber-400 border border-amber-500/30',
-  tyres: 'bg-gray-500/20 text-gray-400 border border-gray-500/30',
-  accessories: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
-  food: 'bg-green-500/20 text-green-400 border border-green-500/30',
+  gas: 'bg-blue-500/20 text-blue-600 border border-blue-500/30',
+  lubes: 'bg-amber-500/20 text-amber-600 border border-amber-500/30',
+  tyres: 'bg-gray-500/20 text-gray-500 border border-gray-500/30',
+  accessories: 'bg-purple-500/20 text-purple-600 border border-purple-500/30',
+  food: 'bg-green-500/20 text-green-600 border border-green-500/30',
   other: 'bg-muted text-muted-foreground border border-border',
 };
 
@@ -76,8 +76,8 @@ export default function Products() {
 
       {lowStock.length > 0 && (
         <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-3 flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-amber-400" />
-          <span className="text-sm text-amber-400">{lowStock.length} product{lowStock.length > 1 ? 's' : ''} at or below minimum stock level</span>
+          <AlertTriangle className="w-4 h-4 text-amber-600" />
+          <span className="text-sm text-amber-600">{lowStock.length} product{lowStock.length > 1 ? 's' : ''} at or below minimum stock level</span>
         </div>
       )}
 
@@ -107,8 +107,8 @@ export default function Products() {
                     </td>
                     <td className="px-4 py-3"><Badge variant="outline" className={categoryColors[p.category] || categoryColors.other}>{p.category}</Badge></td>
                     <td className="px-4 py-3 text-right">
-                      <span className={isLow ? 'text-red-400 font-bold' : 'text-foreground'}>{parseFloat(p.stockQuantity).toLocaleString()}</span>
-                      {isLow && <AlertTriangle className="w-3 h-3 text-red-400 inline ml-1" />}
+                      <span className={isLow ? 'text-red-600 font-bold' : 'text-foreground'}>{parseFloat(p.stockQuantity).toLocaleString()}</span>
+                      {isLow && <AlertTriangle className="w-3 h-3 text-red-600 inline ml-1" />}
                     </td>
                     <td className="px-4 py-3 text-right text-primary font-bold">UGX {parseFloat(p.sellingPrice).toLocaleString()}</td>
                     <td className="px-4 py-3 text-right text-muted-foreground">{p.costPrice ? `UGX ${parseFloat(p.costPrice).toLocaleString()}` : '-'}</td>

@@ -37,7 +37,7 @@ function TankCard({ tank, onUpdate }: { tank: any; onUpdate: () => void }) {
             <p className="text-xs text-muted-foreground">Capacity: {parseFloat(tank.capacity).toLocaleString()}L</p>
           </div>
           <div className="flex items-center gap-2">
-            {tank.status === 'critical' && <AlertTriangle className="w-4 h-4 text-red-400 animate-pulse" />}
+            {tank.status === 'critical' && <AlertTriangle className="w-4 h-4 text-red-600 animate-pulse" />}
             <Badge variant="outline" className={sc.class}>{sc.label}</Badge>
           </div>
         </div>
@@ -71,7 +71,7 @@ function TankCard({ tank, onUpdate }: { tank: any; onUpdate: () => void }) {
             {tank.minLevel && (
               <div className="flex justify-between text-sm">
                 <span className="text-muted-foreground">Min Level</span>
-                <span className={parseFloat(tank.currentLevel) <= parseFloat(tank.minLevel) ? 'text-red-400' : 'text-muted-foreground'}>
+                <span className={parseFloat(tank.currentLevel) <= parseFloat(tank.minLevel) ? 'text-red-600' : 'text-muted-foreground'}>
                   {parseFloat(tank.minLevel).toLocaleString()}L
                 </span>
               </div>
@@ -82,7 +82,7 @@ function TankCard({ tank, onUpdate }: { tank: any; onUpdate: () => void }) {
         {tank.atgSensorId && (
           <div className="flex items-center gap-2 mb-3 px-2 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/20">
             <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-xs text-emerald-400">ATG Sensor: {tank.atgSensorId}</span>
+            <span className="text-xs text-emerald-600">ATG Sensor: {tank.atgSensorId}</span>
           </div>
         )}
 
@@ -183,9 +183,9 @@ export default function Tanks() {
 
       {alerts.length > 0 && (
         <div className="bg-amber-500/10 border border-amber-500/20 rounded-xl p-4 flex items-start gap-3">
-          <AlertTriangle className="w-5 h-5 text-amber-400 shrink-0 mt-0.5" />
+          <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0 mt-0.5" />
           <div>
-            <p className="font-semibold text-amber-400 text-sm">Tank Alerts ({alerts.length})</p>
+            <p className="font-semibold text-amber-600 text-sm">Tank Alerts ({alerts.length})</p>
             <p className="text-xs text-muted-foreground mt-1">{alerts.map(t => `${t.name} (${t.status})`).join(', ')}</p>
           </div>
         </div>

@@ -8,9 +8,9 @@ import { toast } from "sonner";
 
 const roleColors: Record<string, string> = {
   super_admin: 'badge-danger',
-  company_owner: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
+  company_owner: 'bg-purple-500/20 text-purple-600 border border-purple-500/30',
   company_admin: 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30',
-  manager: 'badge-warning', supervisor: 'badge-info', accountant: 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30',
+  manager: 'badge-warning', supervisor: 'badge-info', accountant: 'bg-cyan-500/20 text-cyan-700 border border-cyan-500/30',
   technician: 'bg-orange-500/20 text-orange-400 border border-orange-500/30', attendant: 'badge-active', user: 'badge-inactive',
 };
 

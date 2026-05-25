@@ -51,9 +51,9 @@ export default function Attendants() {
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card className="bg-card border-border"><CardContent className="p-4 text-center"><p className="text-2xl font-bold text-foreground">{attendants?.length || 0}</p><p className="text-xs text-muted-foreground mt-1">Total Registered</p></CardContent></Card>
-        <Card className="bg-card border-border"><CardContent className="p-4 text-center"><p className="text-2xl font-bold text-emerald-400">{attendants?.filter((a: any) => a.isActive).length || 0}</p><p className="text-xs text-muted-foreground mt-1">Active</p></CardContent></Card>
-        <Card className="bg-card border-border"><CardContent className="p-4 text-center"><p className="text-2xl font-bold text-amber-400">{attendants?.filter((a: any) => !a.isActive).length || 0}</p><p className="text-xs text-muted-foreground mt-1">Inactive</p></CardContent></Card>
-        <Card className="bg-card border-border"><CardContent className="p-4 text-center"><p className="text-2xl font-bold text-blue-400">{attendants?.filter((a: any) => a.nfcTagId).length || 0}</p><p className="text-xs text-muted-foreground mt-1">NFC Enabled</p></CardContent></Card>
+        <Card className="bg-card border-border"><CardContent className="p-4 text-center"><p className="text-2xl font-bold text-emerald-600">{attendants?.filter((a: any) => a.isActive).length || 0}</p><p className="text-xs text-muted-foreground mt-1">Active</p></CardContent></Card>
+        <Card className="bg-card border-border"><CardContent className="p-4 text-center"><p className="text-2xl font-bold text-amber-600">{attendants?.filter((a: any) => !a.isActive).length || 0}</p><p className="text-xs text-muted-foreground mt-1">Inactive</p></CardContent></Card>
+        <Card className="bg-card border-border"><CardContent className="p-4 text-center"><p className="text-2xl font-bold text-blue-600">{attendants?.filter((a: any) => a.nfcTagId).length || 0}</p><p className="text-xs text-muted-foreground mt-1">NFC Enabled</p></CardContent></Card>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -81,10 +81,10 @@ export default function Attendants() {
               </div>
               <div className="space-y-1 text-xs text-muted-foreground">
                 {att.phone && <p>📞 {att.phone}</p>}
-                {att.nfcTagId && <p className="flex items-center gap-1"><Fingerprint className="w-3 h-3 text-blue-400" /><span className="font-mono text-blue-400">{att.nfcTagId}</span></p>}
+                {att.nfcTagId && <p className="flex items-center gap-1"><Fingerprint className="w-3 h-3 text-blue-600" /><span className="font-mono text-blue-600">{att.nfcTagId}</span></p>}
                 <p>Registered: {new Date(att.createdAt).toLocaleDateString()}</p>
               </div>
-              <Button size="sm" variant="outline" className={`w-full mt-3 h-7 text-xs ${att.isActive ? 'text-destructive border-destructive/30' : 'text-emerald-400 border-emerald-400/30'}`} onClick={() => toggleActive.mutate({ id: att.id, isActive: !att.isActive })}>
+              <Button size="sm" variant="outline" className={`w-full mt-3 h-7 text-xs ${att.isActive ? 'text-destructive border-destructive/30' : 'text-emerald-600 border-emerald-400/30'}`} onClick={() => toggleActive.mutate({ id: att.id, isActive: !att.isActive })}>
                 {att.isActive ? 'Deactivate' : 'Activate'}
               </Button>
             </CardContent>

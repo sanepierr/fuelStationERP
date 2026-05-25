@@ -129,7 +129,7 @@ export default function Home() {
             <div className="space-y-3">
               {['QR code on every receipt', 'TIN number embedded', 'Online verification portal', 'Tamper-proof audit trail', 'Downloadable in PDF/CSV/Excel'].map(item => (
                 <div key={item} className="flex items-center gap-2">
-                  <CheckCircle className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+                  <CheckCircle className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                   <span className="text-sm text-foreground">{item}</span>
                 </div>
               ))}
@@ -151,7 +151,7 @@ export default function Home() {
               <div className="flex justify-between"><span className="text-muted-foreground">Price/L</span><span className="text-foreground">UGX 5,200</span></div>
               <div className="flex justify-between font-bold border-t border-border pt-2"><span className="text-foreground">Total</span><span className="text-primary">UGX 104,000</span></div>
             </div>
-            <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3 text-xs text-emerald-400 text-center">
+            <div className="bg-emerald-500/10 border border-emerald-500/30 rounded-lg p-3 text-xs text-emerald-600 text-center">
               ✓ URA Verified · TIN: 1000123456
             </div>
           </div>

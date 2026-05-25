@@ -35,9 +35,9 @@ function exportToCSV(transactions: any[]) {
 }
 
 const paymentColors: Record<string, string> = {
-  cash: 'badge-active', mtn_momo: 'bg-yellow-500/20 text-yellow-400 border border-yellow-500/30',
-  airtel_money: 'bg-red-500/20 text-red-400 border border-red-500/30', visa: 'badge-info',
-  credit: 'bg-purple-500/20 text-purple-400 border border-purple-500/30', prepaid: 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30',
+  cash: 'badge-active', mtn_momo: 'bg-yellow-50 text-yellow-700 border border-yellow-200',
+  airtel_money: 'bg-red-50 text-red-700 border border-red-200', visa: 'badge-info',
+  credit: 'bg-purple-50 text-purple-700 border border-purple-200', prepaid: 'bg-cyan-50 text-cyan-700 border border-cyan-200',
 };
 
 function ReceiptModal({ tx, onClose }: { tx: any; onClose: () => void }) {
@@ -60,7 +60,7 @@ function ReceiptModal({ tx, onClose }: { tx: any; onClose: () => void }) {
           {tx.pricePerUnit && <div className="flex justify-between"><span className="text-muted-foreground">Price/L</span><span>UGX {parseFloat(tx.pricePerUnit).toLocaleString()}</span></div>}
           <div className="flex justify-between"><span className="text-muted-foreground">Subtotal</span><span>UGX {parseFloat(tx.subtotal).toLocaleString()}</span></div>
           {tx.taxAmount && parseFloat(tx.taxAmount) > 0 && <div className="flex justify-between"><span className="text-muted-foreground">Tax</span><span>UGX {parseFloat(tx.taxAmount).toLocaleString()}</span></div>}
-          {tx.discountAmount && parseFloat(tx.discountAmount) > 0 && <div className="flex justify-between"><span className="text-muted-foreground">Discount</span><span className="text-emerald-400">-UGX {parseFloat(tx.discountAmount).toLocaleString()}</span></div>}
+          {tx.discountAmount && parseFloat(tx.discountAmount) > 0 && <div className="flex justify-between"><span className="text-muted-foreground">Discount</span><span className="text-emerald-600">-UGX {parseFloat(tx.discountAmount).toLocaleString()}</span></div>}
           <div className="flex justify-between font-bold text-base border-t border-border pt-2 mt-2">
             <span>TOTAL</span><span className="text-primary">UGX {parseFloat(tx.totalAmount).toLocaleString()}</span>
           </div>
@@ -105,7 +105,7 @@ export default function Transactions() {
   return (
     <div className="space-y-6">
       {/* PTS-2 read-only notice */}
-      <div className="flex items-center gap-2 px-4 py-2.5 bg-blue-500/10 border border-blue-500/20 rounded-lg text-blue-400 text-sm">
+      <div className="flex items-center gap-2 px-4 py-2.5 bg-blue-50 border border-blue-200 rounded-lg text-blue-700 text-sm">
         <Info className="w-4 h-4 flex-shrink-0" />
         Transaction records are fetched automatically from the PTS-2 pump controller and are read-only. Manual entries are available for non-controller stations via New Transaction.
       </div>
