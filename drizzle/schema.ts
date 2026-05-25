@@ -78,6 +78,15 @@ export const stations = mysqlTable("stations", {
   atgPort: int("atgPort").default(10001),
   tinNumber: varchar("tinNumber", { length: 64 }),
   licenseNumber: varchar("licenseNumber", { length: 64 }),
+  logoUrl: text("logoUrl"),
+  pts2Host: varchar("pts2Host", { length: 255 }),
+  pts2Port: int("pts2Port").default(80),
+  pts2Username: varchar("pts2Username", { length: 128 }),
+  pts2Password: varchar("pts2Password", { length: 128 }),
+  pts2SyncEnabled: boolean("pts2SyncEnabled").default(false),
+  pts2LastSync: timestamp("pts2LastSync"),
+  pts2FirmwareVersion: varchar("pts2FirmwareVersion", { length: 64 }),
+  pts2SerialNumber: varchar("pts2SerialNumber", { length: 64 }),
   createdAt: timestamp("createdAt").defaultNow().notNull(),
   updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
 });
@@ -527,6 +536,84 @@ export const auditLogs = mysqlTable("audit_logs", {
 });
 
 export type AuditLog = typeof auditLogs.$inferSelect;
+
+// ─── Pump Price Changes ───────────────────────────────────────────────────────
+
+export const pumpPriceChanges = mysqlTable("pump_price_changes", {
+  id: int("id").autoincrement().primaryKey(),
+  stationId: int("stationId").notNull(),
+  pumpId: int("pumpId"),
+  fuelTypeId: int("fuelTypeId").notNull(),
+  oldPrice: decimal("oldPrice", { precision: 10, scale: 2 }).notNull(),
+  newPrice: decimal("newPrice", { precision: 10, scale: 2 }).notNull(),
+  reason: text("reason"),
+  changedByUserId: int("changedByUserId").notNull(),
+  changedByName: varchar("changedByName", { length: 255 }),
+  effectiveAt: timestamp("effectiveAt").defaultNow().notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type PumpPriceChange = typeof pumpPriceChanges.$inferSelect;
+export type InsertPumpPriceChange = typeof pumpPriceChanges.$inferInsert;
+
+// ─── CCTV / Cameras ──────────────────────────────────────────────────────────
+
+export const cameras = mysqlTable("cameras", {
+  id: int("id").autoincrement().primaryKey(),
+  stationId: int("stationId").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  channelNumber: int("channelNumber").notNull(),
+  location: varchar("location", { length: 255 }),
+  streamUrl: text("streamUrl"),
+  snapshotUrl: text("snapshotUrl"),
+  status: mysqlEnum("status", ["online", "offline", "fault"]).default("offline").notNull(),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Camera = typeof cameras.$inferSelect;
+export type InsertCamera = typeof cameras.$inferInsert;
+
+export const cameraEvents = mysqlTable("camera_events", {
+  id: int("id").autoincrement().primaryKey(),
+  cameraId: int("cameraId").notNull(),
+  stationId: int("stationId").notNull(),
+  eventType: mysqlEnum("eventType", ["motion", "offline", "online", "tamper"]).notNull(),
+  description: text("description"),
+  snapshotUrl: text("snapshotUrl"),
+  isResolved: boolean("isResolved").default(false).notNull(),
+  resolvedAt: timestamp("resolvedAt"),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CameraEvent = typeof cameraEvents.$inferSelect;
+
+export const cameraRecordings = mysqlTable("camera_recordings", {
+  id: int("id").autoincrement().primaryKey(),
+  cameraId: int("cameraId").notNull(),
+  stationId: int("stationId").notNull(),
+  startTime: timestamp("startTime").notNull(),
+  endTime: timestamp("endTime"),
+  durationSeconds: int("durationSeconds"),
+  fileUrl: text("fileUrl"),
+  fileSize: bigint("fileSize", { mode: "number" }),
+  isStarred: boolean("isStarred").default(false).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CameraRecording = typeof cameraRecordings.$inferSelect;
+
+export const cameraZones = mysqlTable("camera_zones", {
+  id: int("id").autoincrement().primaryKey(),
+  cameraId: int("cameraId").notNull(),
+  name: varchar("name", { length: 255 }).notNull(),
+  coordinates: json("coordinates"),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+});
+
+export type CameraZone = typeof cameraZones.$inferSelect;
 
 // ─── Notifications ────────────────────────────────────────────────────────────
 

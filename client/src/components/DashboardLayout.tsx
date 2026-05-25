@@ -31,6 +31,7 @@ import {
   Bell,
   BookOpen,
   Building2,
+  Camera,
   CreditCard,
   FileText,
   Fuel,
@@ -39,6 +40,7 @@ import {
   LogOut,
   Map,
   Package,
+  Power,
   Receipt,
   RefreshCw,
   Settings,
@@ -96,6 +98,14 @@ const navGroups = [
       { icon: Ticket, label: "Support Tickets", path: "/tickets" },
       { icon: FileText, label: "Invoices", path: "/invoices" },
       { icon: Users, label: "User Management", path: "/users" },
+    ],
+  },
+  {
+    label: "System",
+    items: [
+      { icon: Power, label: "Pump Control", path: "/pump-control" },
+      { icon: Camera, label: "CCTV", path: "/cctv" },
+      { icon: Settings, label: "Settings", path: "/settings" },
     ],
   },
 ];
@@ -157,7 +167,10 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
   const sidebarRef = useRef<HTMLDivElement>(null);
   const isMobile = useIsMobile();
   const { data: notifications } = trpc.notifications.list.useQuery(undefined, { refetchInterval: 30000 });
-  const unreadCount = notifications?.filter(n => !n.isRead).length || 0;
+  const { data: tankAlerts } = trpc.tankAlerts.list.useQuery(undefined, { refetchInterval: 60000 });
+  const unreadNotifs = notifications?.filter(n => !n.isRead).length || 0;
+  const tankAlertCount = tankAlerts?.length || 0;
+  const unreadCount = unreadNotifs + tankAlertCount;
   const { data: dashStats } = trpc.dashboard.stats.useQuery(undefined, { refetchInterval: 60000 });
 
   useEffect(() => {
@@ -308,18 +321,58 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
             </div>
           )}
           
-          {/* Notifications */}
-          <button
-            onClick={() => navigate('/tickets')}
-            className="relative h-8 w-8 rounded-lg hover:bg-accent transition-colors flex items-center justify-center"
-          >
-            <Bell className="h-4 w-4 text-muted-foreground" />
-            {unreadCount > 0 && (
-              <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary rounded-full text-[9px] font-bold text-primary-foreground flex items-center justify-center">
-                {unreadCount > 9 ? '9+' : unreadCount}
-              </span>
-            )}
-          </button>
+          {/* Notifications Bell Dropdown */}
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <button className="relative h-8 w-8 rounded-lg hover:bg-accent transition-colors flex items-center justify-center">
+                <Bell className="h-4 w-4 text-muted-foreground" />
+                {unreadCount > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 w-4 h-4 bg-primary rounded-full text-[9px] font-bold text-primary-foreground flex items-center justify-center">
+                    {unreadCount > 9 ? '9+' : unreadCount}
+                  </span>
+                )}
+              </button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end" className="w-80 max-h-96 overflow-y-auto">
+              <div className="px-3 py-2 border-b border-border">
+                <p className="text-sm font-semibold">Notifications</p>
+              </div>
+              {tankAlertCount > 0 && (
+                <>
+                  <div className="px-3 py-1.5">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">Tank Alerts</p>
+                  </div>
+                  {tankAlerts?.map(alert => (
+                    <DropdownMenuItem key={alert.id} className="flex flex-col items-start gap-0.5 px-3 py-2 cursor-pointer" onClick={() => navigate('/tanks')}>
+                      <div className="flex items-center gap-2 w-full">
+                        <AlertTriangle className={`w-3.5 h-3.5 shrink-0 ${alert.status === 'critical' ? 'text-red-400' : 'text-yellow-400'}`} />
+                        <span className="text-sm font-medium truncate">{alert.stationName} — {alert.fuelTypeName}</span>
+                        <span className={`ml-auto text-xs px-1.5 py-0.5 rounded-full ${alert.status === 'critical' ? 'bg-red-500/20 text-red-400' : 'bg-yellow-500/20 text-yellow-400'}`}>{alert.status}</span>
+                      </div>
+                      <span className="text-xs text-muted-foreground ml-5">{alert.name} — {Number(alert.currentLevel).toLocaleString()}L remaining</span>
+                    </DropdownMenuItem>
+                  ))}
+                  <DropdownMenuSeparator />
+                </>
+              )}
+              {unreadNotifs > 0 && (
+                <>
+                  <div className="px-3 py-1.5">
+                    <p className="text-xs text-muted-foreground uppercase tracking-wider font-medium">System</p>
+                  </div>
+                  {notifications?.filter(n => !n.isRead).slice(0, 5).map(n => (
+                    <DropdownMenuItem key={n.id} className="flex flex-col items-start gap-0.5 px-3 py-2">
+                      <span className="text-sm font-medium">{n.title}</span>
+                      <span className="text-xs text-muted-foreground">{n.message}</span>
+                    </DropdownMenuItem>
+                  ))}
+                </>
+              )}
+              {unreadCount === 0 && (
+                <div className="px-3 py-6 text-center text-sm text-muted-foreground">No new notifications</div>
+              )}
+            </DropdownMenuContent>
+          </DropdownMenu>
           
           <div className="text-xs text-muted-foreground hidden sm:block">
             {new Date().toLocaleDateString('en-UG', { weekday: 'short', month: 'short', day: 'numeric' })}

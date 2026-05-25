@@ -32,6 +32,9 @@ import RTT from "./pages/RTT";
 import StationMap from "./pages/StationMap";
 import ReceiptVerify from "./pages/ReceiptVerify";
 import DashboardLayout from "./components/DashboardLayout";
+import CCTV from "./pages/CCTV";
+import PumpControl from "./pages/PumpControl";
+import Settings from "./pages/Settings";
 
 function LoginPage() {
   const [mode, setMode] = useState<"login" | "register">("login");
@@ -202,6 +205,10 @@ function Router() {
               <Route path="/attendants" component={Attendants} />
               <Route path="/rtt" component={RTT} />
               <Route path="/map" component={StationMap} />
+              <Route path="/pump-control" component={PumpControl} />
+              <Route path="/cctv" component={CCTV} />
+              <Route path="/settings" component={Settings} />
+              <Route path="/dashboard" component={Dashboard} />
               <Route path="/404" component={NotFound} />
               <Route component={NotFound} />
             </Switch>

@@ -118,3 +118,6 @@ client/public/__manus__/
 
 # Backup files
 *.bak
+
+# Reference directory (client's target design)
+fuelsync-pro-fixed/

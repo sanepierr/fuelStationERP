@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { Receipt, Search, Printer, Download, Eye, FileText } from "lucide-react";
+import { Receipt, Search, Printer, Download, Eye, FileText, Info } from "lucide-react";
 import { useState } from "react";
 import { useLocation } from "wouter";
 import { toast } from "sonner";
@@ -104,6 +104,12 @@ export default function Transactions() {
 
   return (
     <div className="space-y-6">
+      {/* PTS-2 read-only notice */}
+      <div className="flex items-center gap-2 px-4 py-2.5 bg-blue-500/10 border border-blue-500/20 rounded-lg text-blue-400 text-sm">
+        <Info className="w-4 h-4 flex-shrink-0" />
+        Transaction records are fetched automatically from the PTS-2 pump controller and are read-only. Manual entries are available for non-controller stations via New Transaction.
+      </div>
+
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Transactions</h1>

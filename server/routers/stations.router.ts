@@ -39,16 +39,26 @@ export const stationsRouter = router({
     city: z.string().optional(),
     phone: z.string().optional(),
     email: z.string().optional(),
+    tinNumber: z.string().optional(),
+    licenseNumber: z.string().optional(),
+    logoUrl: z.string().optional(),
     status: z.enum(['active', 'inactive', 'maintenance']).optional(),
     hikVisionHost: z.string().optional(),
     hikVisionUsername: z.string().optional(),
     hikVisionPassword: z.string().optional(),
     atgHost: z.string().optional(),
     atgPort: z.number().optional(),
+    pts2Host: z.string().optional(),
+    pts2Port: z.number().optional(),
+    pts2Username: z.string().optional(),
+    pts2Password: z.string().optional(),
+    pts2SyncEnabled: z.boolean().optional(),
+    pts2FirmwareVersion: z.string().optional(),
+    pts2SerialNumber: z.string().optional(),
   })).mutation(async ({ input, ctx }) => {
     const { id, ...data } = input;
     await db.updateStation(id, data as any);
-    const { hikVisionPassword: _pw, ...auditData } = data;
+    const { hikVisionPassword: _pw, pts2Password: _p2pw, ...auditData } = data;
     await db.writeAuditLog({ userId: ctx.user.id, action: 'update_station', entity: 'stations', entityId: id, after: auditData, ipAddress: ctx.req.ip });
     return { success: true };
   }),

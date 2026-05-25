@@ -22,6 +22,9 @@ import { notificationsRouter } from "./notifications.router";
 import { auditLogsRouter } from "./auditLogs.router";
 import { scheduledRouter } from "./scheduled.router";
 import { ptsControllersRouter } from "./ptsControllers.router";
+import { tankAlertsRouter } from "./tankAlerts.router";
+import { priceChangesRouter } from "./priceChanges.router";
+import { camerasRouter, cameraEventsRouter, recordingsRouter, zonesRouter } from "./cameras.router";
 
 export const appRouter = router({
   system: systemRouter,
@@ -48,6 +51,12 @@ export const appRouter = router({
   auditLogs: auditLogsRouter,
   scheduled: scheduledRouter,
   ptsControllers: ptsControllersRouter,
+  tankAlerts: tankAlertsRouter,
+  priceChanges: priceChangesRouter,
+  cameras: camerasRouter,
+  cameraEvents: cameraEventsRouter,
+  recordings: recordingsRouter,
+  zones: zonesRouter,
 });
 
 export type AppRouter = typeof appRouter;

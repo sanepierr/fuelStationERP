@@ -43,6 +43,13 @@
       "when": 1748131200000,
       "tag": "0005_companies_multitenant",
       "breakpoints": true
+    },
+    {
+      "idx": 6,
+      "version": "5",
+      "when": 1748217600000,
+      "tag": "0006_cctv_price_changes_pts2",
+      "breakpoints": true
     }
   ]
 }
