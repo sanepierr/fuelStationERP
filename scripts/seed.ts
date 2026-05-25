@@ -1,5 +1,5 @@
 /**
- * FuelSync Pro — Database seed script
+ * FuelSync Pro - Database seed script
  * Run with: pnpm tsx scripts/seed.ts
  * Requires DATABASE_URL in .env
  */
@@ -81,7 +81,7 @@ async function main() {
   const stationRows = [
     {
       companyId,
-      name: "Kiari Station — Kampala",
+      name: "Kiari Station - Kampala",
       code: "KPL-KLA",
       address: "Jinja Road, Kampala",
       city: "Kampala",
@@ -99,7 +99,7 @@ async function main() {
     },
     {
       companyId,
-      name: "Kiari Station — Entebbe",
+      name: "Kiari Station - Entebbe",
       code: "KPL-ENT",
       address: "Entebbe Road, Entebbe",
       city: "Entebbe",
@@ -117,7 +117,7 @@ async function main() {
     },
     {
       companyId,
-      name: "Kiari Station — Jinja",
+      name: "Kiari Station - Jinja",
       code: "KPL-JJA",
       address: "Brewery Road, Jinja",
       city: "Jinja",
@@ -175,9 +175,9 @@ async function main() {
   const tankIdsByStation: number[][] = [];
   for (const stId of stationIds) {
     const tankRows = [
-      { stationId: stId, fuelTypeId: petrolId, name: "Tank T1 — Petrol", capacity: "45000.00", currentLevel: "31500.00", minLevel: "2000.00", status: "normal" as const },
-      { stationId: stId, fuelTypeId: dieselId, name: "Tank T2 — Diesel", capacity: "30000.00", currentLevel: "8200.00",  minLevel: "2000.00", status: "low"    as const },
-      { stationId: stId, fuelTypeId: keroId,   name: "Tank T3 — Kero",   capacity: "20000.00", currentLevel: "980.00",   minLevel: "1000.00", status: "critical" as const },
+      { stationId: stId, fuelTypeId: petrolId, name: "Tank T1 - Petrol", capacity: "45000.00", currentLevel: "31500.00", minLevel: "2000.00", status: "normal" as const },
+      { stationId: stId, fuelTypeId: dieselId, name: "Tank T2 - Diesel", capacity: "30000.00", currentLevel: "8200.00",  minLevel: "2000.00", status: "low"    as const },
+      { stationId: stId, fuelTypeId: keroId,   name: "Tank T3 - Kero",   capacity: "20000.00", currentLevel: "980.00",   minLevel: "1000.00", status: "critical" as const },
     ];
     const ids: number[] = [];
     for (const t of tankRows) {
@@ -363,7 +363,7 @@ async function main() {
         orderedVolume: "15000.000",
         pricePerLitre: "4400.0000", totalCost: "65912000.00",
         status: "ordered" as const,
-        notes: "Partial shortfall — 20L claimed in transit",
+        notes: "Partial shortfall - 20L claimed in transit",
       },
     ]);
   }
@@ -408,7 +408,7 @@ async function main() {
       ticketNumber: "TKT-0002",
       stationId: stationIds[1],
       title: "POS printer jam on lane 2",
-      description: "Receipt printer at lane 2 is jamming after every 3rd print. Paper roll changed — issue persists.",
+      description: "Receipt printer at lane 2 is jamming after every 3rd print. Paper roll changed - issue persists.",
       category: "technical",
       priority: "medium",
       status: "in_progress",
@@ -430,9 +430,9 @@ async function main() {
 
   // ─── Notifications ────────────────────────────────────────────────────────────
   await db.insert(notifications).values([
-    { userId: adminId, title: "Low Fuel Alert", message: "Tank T2 — Diesel at Kampala station is below minimum level (8,200L / 30,000L capacity)", type: "alert", isRead: false },
-    { userId: adminId, title: "Critical Fuel Alert", message: "Tank T3 — Kero at all stations is critically low. Arrange delivery immediately.", type: "alert", isRead: false },
-    { userId: adminId, title: "Shift Started", message: "Morning Shift opened at Kiari Station — Kampala", type: "info", isRead: true },
+    { userId: adminId, title: "Low Fuel Alert", message: "Tank T2 - Diesel at Kampala station is below minimum level (8,200L / 30,000L capacity)", type: "alert", isRead: false },
+    { userId: adminId, title: "Critical Fuel Alert", message: "Tank T3 - Kero at all stations is critically low. Arrange delivery immediately.", type: "alert", isRead: false },
+    { userId: adminId, title: "Shift Started", message: "Morning Shift opened at Kiari Station - Kampala", type: "info", isRead: true },
     { userId: adminId, title: "Delivery Pending", message: "Total Energies delivery at Entebbe station is awaiting confirmation", type: "info", isRead: false },
   ]);
   console.log("Notifications seeded");

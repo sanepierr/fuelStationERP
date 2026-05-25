@@ -68,7 +68,7 @@ export default function Users() {
                       <span className="font-medium text-foreground">{u.name || 'Unnamed'}</span>
                     </div>
                   </td>
-                  <td className="px-4 py-3 text-muted-foreground">{u.email || '—'}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{u.email || '--'}</td>
                   <td className="px-4 py-3"><Badge variant="outline" className={roleColors[u.role] || 'badge-inactive'}>{u.role}</Badge></td>
                   <td className="px-4 py-3">
                     <Badge variant="outline" className={(u as any).isActive !== false ? 'badge-active' : 'badge-inactive'}>

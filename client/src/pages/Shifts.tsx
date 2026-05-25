@@ -68,7 +68,7 @@ export default function Shifts() {
               <div className="flex items-center gap-3">
                 <div className="w-3 h-3 rounded-full bg-emerald-400 animate-pulse" />
                 <div>
-                  <p className="font-semibold text-emerald-600">{activeShift.shiftName} — Active</p>
+                  <p className="font-semibold text-emerald-600">{activeShift.shiftName} - Active</p>
                   <p className="text-xs text-muted-foreground">Started: {new Date(activeShift.startTime).toLocaleString()} </p>
                 </div>
               </div>
@@ -105,7 +105,7 @@ export default function Shifts() {
                   <td className="px-4 py-3 font-medium text-foreground">{shift.shiftName}</td>
                   <td className="px-4 py-3 text-muted-foreground">—</td>
                   <td className="px-4 py-3 text-muted-foreground text-xs">{new Date(shift.startTime).toLocaleString()}</td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{shift.endTime ? new Date(shift.endTime).toLocaleString() : '—'}</td>
+                  <td className="px-4 py-3 text-muted-foreground text-xs">{shift.endTime ? new Date(shift.endTime).toLocaleString() : '--'}</td>
                   <td className="px-4 py-3 text-right font-bold text-foreground">UGX {parseFloat(shift.totalSales || '0').toLocaleString()}</td>
                   <td className="px-4 py-3 text-right text-muted-foreground">—</td>
                   <td className="px-4 py-3"><Badge variant="outline" className={shift.status === 'active' ? 'badge-active' : shift.status === 'closed' ? 'badge-inactive' : 'badge-warning'}>{shift.status}</Badge></td>

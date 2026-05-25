@@ -26,7 +26,7 @@ export default function ReceiptVerify() {
             <Shield className="w-8 h-8 text-primary" />
           </div>
           <h1 className="text-2xl font-bold text-foreground">Receipt Verification</h1>
-          <p className="text-muted-foreground text-sm mt-1">Verify fuel transaction receipts — compliant with Uganda Revenue Authority (URA)</p>
+          <p className="text-muted-foreground text-sm mt-1">Verify fuel transaction receipts - compliant with Uganda Revenue Authority (URA)</p>
         </div>
 
         <Card className="bg-card border-border">
@@ -83,8 +83,8 @@ export default function ReceiptVerify() {
                   <div><p className="text-muted-foreground text-xs">Date</p><p className="font-medium text-foreground">{new Date(receipt.createdAt).toLocaleString()}</p></div>
                   <div><p className="text-muted-foreground text-xs">Station</p><p className="font-medium text-foreground">{(receipt as any).stationName || 'FuelSync Station'}</p></div>
                   <div><p className="text-muted-foreground text-xs">Fuel Type</p><p className="font-medium text-foreground">{(receipt as any).fuelTypeName || receipt.transactionType}</p></div>
-                  <div><p className="text-muted-foreground text-xs">Volume</p><p className="font-bold text-foreground">{receipt.fuelVolume ? parseFloat(receipt.fuelVolume).toFixed(2) : '—'}L</p></div>
-                  <div><p className="text-muted-foreground text-xs">Unit Price</p><p className="font-medium text-foreground">UGX {receipt.pricePerUnit ? parseFloat(receipt.pricePerUnit).toLocaleString() : '—'}/L</p></div>
+                  <div><p className="text-muted-foreground text-xs">Volume</p><p className="font-bold text-foreground">{receipt.fuelVolume ? parseFloat(receipt.fuelVolume).toFixed(2) : '--'}L</p></div>
+                  <div><p className="text-muted-foreground text-xs">Unit Price</p><p className="font-medium text-foreground">UGX {receipt.pricePerUnit ? parseFloat(receipt.pricePerUnit).toLocaleString() : '--'}/L</p></div>
                   <div><p className="text-muted-foreground text-xs">Amount Paid</p><p className="font-bold text-emerald-600 text-lg">UGX {parseFloat(receipt.totalAmount).toLocaleString()}</p></div>
                   <div><p className="text-muted-foreground text-xs">Payment Method</p><Badge variant="outline" className="badge-info capitalize">{receipt.paymentMethod?.replace(/_/g, ' ')}</Badge></div>
                 </div>

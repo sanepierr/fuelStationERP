@@ -188,7 +188,7 @@ export default function NewTransaction() {
           )}
 
           <div>
-            <Label className="text-xs text-muted-foreground">Loyalty Card (NFC/RFID) — Optional</Label>
+            <Label className="text-xs text-muted-foreground">Loyalty Card (NFC/RFID) - Optional</Label>
             <Input value={loyaltyCard} onChange={e => setLoyaltyCard(e.target.value)} placeholder="Scan or enter card ID" className="bg-input border-border" />
           </div>
 

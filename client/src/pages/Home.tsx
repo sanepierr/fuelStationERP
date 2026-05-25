@@ -13,7 +13,7 @@ const features = [
   { icon: MapPin, title: "Geo-Location Map", desc: "Interactive map showing all connected stations with live status indicators." },
   { icon: CreditCard, title: "Multi-Payment", desc: "Cash, MTN MoMo, Airtel Money, Visa, Credit Sales, and Prepaid accounts." },
   { icon: Zap, title: "Loyalty Program", desc: "NFC/RFID-based loyalty cards with points earning and redemption for fuel consumers." },
-  { icon: Users, title: "Pump Attendants", desc: "Register attendants with NFC/RFID tags — only registered attendants can operate pumps." },
+  { icon: Users, title: "Pump Attendants", desc: "Register attendants with NFC/RFID tags - only registered attendants can operate pumps." },
 ];
 
 export default function Home() {
@@ -68,7 +68,7 @@ export default function Home() {
             Complete Fuel Station<br /><span className="text-primary">Management System</span>
           </h1>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto mb-10">
-            From depot to forecourt — track every litre, every transaction, every shilling. 
+            From depot to forecourt - track every litre, every transaction, every shilling. 
             URA-compliant receipts, live ATG monitoring, loyalty programs, and multi-station dashboards.
           </p>
           <div className="flex items-center justify-center gap-4 flex-wrap">

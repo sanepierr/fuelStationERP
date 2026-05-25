@@ -125,12 +125,12 @@ export default function StationMap() {
 
       {selectedStation && (
         <Card className="bg-card border-border">
-          <CardHeader><CardTitle className="text-sm flex items-center gap-2"><Activity className="w-4 h-4 text-primary" />{selectedStation.name} — Details</CardTitle></CardHeader>
+          <CardHeader><CardTitle className="text-sm flex items-center gap-2"><Activity className="w-4 h-4 text-primary" />{selectedStation.name} - Details</CardTitle></CardHeader>
           <CardContent>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
               <div><p className="text-muted-foreground text-xs">Code</p><p className="font-mono font-bold text-foreground">{selectedStation.code}</p></div>
-              <div><p className="text-muted-foreground text-xs">Address</p><p className="font-medium text-foreground">{selectedStation.address || '—'}</p></div>
-              <div><p className="text-muted-foreground text-xs">Phone</p><p className="font-medium text-foreground">{selectedStation.phone || '—'}</p></div>
+              <div><p className="text-muted-foreground text-xs">Address</p><p className="font-medium text-foreground">{selectedStation.address || '--'}</p></div>
+              <div><p className="text-muted-foreground text-xs">Phone</p><p className="font-medium text-foreground">{selectedStation.phone || '--'}</p></div>
               <div><p className="text-muted-foreground text-xs">Status</p><Badge variant="outline" className={selectedStation.status === 'active' ? 'badge-active' : 'badge-inactive'}>{selectedStation.status === 'active' ? 'Active' : 'Inactive'}</Badge></div>
             </div>
           </CardContent>

@@ -36,7 +36,7 @@ export default function Deliveries() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Fuel Deliveries</h1>
-          <p className="text-muted-foreground text-sm">Track fuel from depot to station — full chain of custody</p>
+          <p className="text-muted-foreground text-sm">Track fuel from depot to station - full chain of custody</p>
         </div>
         <div className="flex items-center gap-2">
           <Select value={stationId} onValueChange={setStationId}>

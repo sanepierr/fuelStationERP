@@ -26,7 +26,7 @@ export default function Attendants() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-2xl font-bold text-foreground">Pump Attendants</h1>
-          <p className="text-muted-foreground text-sm">Register and manage pump attendants — only registered attendants can operate pumps</p>
+          <p className="text-muted-foreground text-sm">Register and manage pump attendants - only registered attendants can operate pumps</p>
         </div>
         <div className="flex items-center gap-2">
           <Select value={stationId} onValueChange={setStationId}>

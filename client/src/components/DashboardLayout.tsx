@@ -352,10 +352,10 @@ function DashboardLayoutContent({ children, setSidebarWidth }: { children: React
                     <DropdownMenuItem key={alert.id} className="flex flex-col items-start gap-0.5 px-3 py-2 cursor-pointer" onClick={() => navigate('/tanks')}>
                       <div className="flex items-center gap-2 w-full">
                         <AlertTriangle className={`w-3.5 h-3.5 shrink-0 ${alert.status === 'critical' ? 'text-red-600' : 'text-yellow-600'}`} />
-                        <span className="text-sm font-medium truncate">{alert.stationName} — {alert.fuelTypeName}</span>
+                        <span className="text-sm font-medium truncate">{alert.stationName} - {alert.fuelTypeName}</span>
                         <span className={`ml-auto text-xs px-1.5 py-0.5 rounded-full ${alert.status === 'critical' ? 'bg-red-500/20 text-red-600' : 'bg-yellow-500/20 text-yellow-600'}`}>{alert.status}</span>
                       </div>
-                      <span className="text-xs text-muted-foreground ml-5">{alert.name} — {Number(alert.currentLevel).toLocaleString()}L remaining</span>
+                      <span className="text-xs text-muted-foreground ml-5">{alert.name} - {Number(alert.currentLevel).toLocaleString()}L remaining</span>
                     </DropdownMenuItem>
                   ))}
                   <DropdownMenuSeparator />

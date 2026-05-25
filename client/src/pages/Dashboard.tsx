@@ -308,7 +308,7 @@ export default function Dashboard() {
           <CardHeader className="pb-2">
             <CardTitle className="text-sm font-semibold text-foreground flex items-center gap-2">
               <Gauge className="w-4 h-4 text-primary" />
-              Tank Levels — {stations?.find(s => s.id === activeStationId)?.name}
+              Tank Levels - {stations?.find(s => s.id === activeStationId)?.name}
             </CardTitle>
           </CardHeader>
           <CardContent>

@@ -100,7 +100,7 @@ export default function Invoices() {
                     <p className="text-xs text-muted-foreground">{inv.clientEmail}</p>
                   </td>
                   <td className="px-4 py-3 text-right font-bold text-foreground">UGX {parseFloat(inv.totalAmount).toLocaleString()}</td>
-                  <td className="px-4 py-3 text-muted-foreground text-xs">{inv.dueDate ? new Date(inv.dueDate).toLocaleDateString() : '—'}</td>
+                  <td className="px-4 py-3 text-muted-foreground text-xs">{inv.dueDate ? new Date(inv.dueDate).toLocaleDateString() : '--'}</td>
                   <td className="px-4 py-3"><Badge variant="outline" className={statusColors[inv.status] || 'badge-inactive'}>{inv.status}</Badge></td>
                   <td className="px-4 py-3 text-center">
                     <div className="flex items-center justify-center gap-1">

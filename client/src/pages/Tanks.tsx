@@ -43,16 +43,45 @@ function TankCard({ tank, onUpdate }: { tank: any; onUpdate: () => void }) {
         </div>
 
         {/* Visual Tank */}
-        <div className="flex items-end gap-4 mb-4">
-          <div className="relative w-16 h-28 bg-muted rounded-lg border-2 border-border overflow-hidden">
-            <div
-              className={`absolute bottom-0 left-0 right-0 transition-all duration-700 ${pct > 50 ? 'bg-emerald-500/80' : pct > 20 ? 'bg-amber-500/80' : 'bg-red-500/80'}`}
-              style={{ height: `${pct}%` }}
-            >
-              <div className="absolute inset-0 opacity-30 bg-gradient-to-t from-transparent to-white" />
+        <div className="flex items-center gap-4 mb-4">
+          <div className="relative flex gap-1">
+            {/* Tick marks */}
+            <div className="flex flex-col justify-between py-1 h-28">
+              {[100, 75, 50, 25, 0].map(v => (
+                <div key={v} className="flex items-center gap-0.5">
+                  <span className="text-[9px] text-muted-foreground w-4 text-right leading-none">{v}</span>
+                  <div className="w-1.5 h-px bg-border" />
+                </div>
+              ))}
             </div>
-            <div className="absolute inset-0 flex items-center justify-center">
-              <span className="text-xs font-bold text-white drop-shadow-lg">{Math.round(pct)}%</span>
+            {/* Tank body */}
+            <div className="relative w-12 h-28 rounded-b-lg rounded-t-sm border-2 border-border bg-muted overflow-hidden"
+              style={{ borderColor: pct > 50 ? '#22c55e' : pct > 20 ? '#f59e0b' : '#ef4444' }}>
+              {/* Fill */}
+              <div
+                className="absolute bottom-0 left-0 right-0 transition-all duration-700"
+                style={{
+                  height: `${pct}%`,
+                  background: pct > 50
+                    ? 'linear-gradient(to top, #16a34a, #4ade80)'
+                    : pct > 20
+                    ? 'linear-gradient(to top, #d97706, #fbbf24)'
+                    : 'linear-gradient(to top, #dc2626, #f87171)',
+                }}
+              >
+                {/* Wave shimmer */}
+                <div className="absolute top-0 left-0 right-0 h-2 opacity-40"
+                  style={{ background: 'linear-gradient(to bottom, rgba(255,255,255,0.6), transparent)' }} />
+              </div>
+              {/* Percentage label */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <span className="text-[11px] font-bold text-white drop-shadow-lg">{Math.round(pct)}%</span>
+              </div>
+              {/* Min level marker */}
+              {tank.minLevel && (
+                <div className="absolute left-0 right-0 border-t border-dashed border-white/60"
+                  style={{ bottom: `${Math.min(100, (parseFloat(tank.minLevel) / parseFloat(tank.capacity)) * 100)}%` }} />
+              )}
             </div>
           </div>
           <div className="flex-1 space-y-2">

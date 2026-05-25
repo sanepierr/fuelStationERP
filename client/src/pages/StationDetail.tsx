@@ -166,7 +166,7 @@ export default function StationDetail() {
               <CardContent className="space-y-4">
                 <div className="grid grid-cols-2 gap-4 text-sm">
                   <div><p className="text-muted-foreground text-xs">Host / IP</p><p className="font-mono font-medium text-foreground">{station.hikVisionHost || 'Not configured'}</p></div>
-                  <div><p className="text-muted-foreground text-xs">Username</p><p className="font-mono font-medium text-foreground">{station.hikVisionUsername || '—'}</p></div>
+                  <div><p className="text-muted-foreground text-xs">Username</p><p className="font-mono font-medium text-foreground">{station.hikVisionUsername || '--'}</p></div>
                   <div><p className="text-muted-foreground text-xs">Status</p><Badge variant="outline" className={station.hikVisionHost ? 'badge-active' : 'badge-inactive'}>{station.hikVisionHost ? 'Configured' : 'Not Set'}</Badge></div>
                   <div><p className="text-muted-foreground text-xs">Protocol</p><p className="text-foreground">RTSP / HTTP API</p></div>
                 </div>

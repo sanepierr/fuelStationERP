@@ -107,7 +107,7 @@ export default function RTT() {
                   <td className="px-4 py-3 text-foreground">Tank #{r.tankId} / Pump #{r.pumpId}</td>
                   <td className="px-4 py-3 text-right font-bold text-amber-600">{parseFloat(r.volume).toFixed(2)}L</td>
                   <td className="px-4 py-3 text-muted-foreground capitalize">{r.reason?.replace(/_/g, ' ')}</td>
-                  <td className="px-4 py-3 text-muted-foreground">{r.technicianName || '—'}</td>
+                  <td className="px-4 py-3 text-muted-foreground">{r.technicianName || '--'}</td>
                   <td className="px-4 py-3"><Badge variant="outline" className={r.status === 'approved' ? 'badge-active' : r.status === 'pending' ? 'badge-warning' : 'badge-inactive'}>{r.status}</Badge></td>
                 </tr>
               ))}
