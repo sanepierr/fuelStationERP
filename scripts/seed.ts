@@ -8,6 +8,7 @@ import "dotenv/config";
 import { drizzle } from "drizzle-orm/mysql2";
 import { scrypt, randomBytes } from "crypto";
 import { promisify } from "util";
+import { eq, sql } from "drizzle-orm";
 import {
   companies, users, stations, fuelTypes, fuelPrices,
   tanks, tankReadings, pumps, pumpAttendants, shifts,
@@ -30,8 +31,8 @@ async function main() {
   const db = drizzle(url);
   console.log("Connected to database");
 
-  // ─── Company ────────────────────────────────────────────────────────────────
-  const [companyResult] = await db.insert(companies).values({
+  // ─── Company (upsert) ────────────────────────────────────────────────────────
+  await db.insert(companies).values({
     name: "Kiari Petroleum Ltd",
     code: "KPL",
     country: "Uganda",
@@ -39,13 +40,14 @@ async function main() {
     email: "info@kiaripetroleum.co.ug",
     address: "Plot 45, Industrial Area, Kampala",
     isActive: true,
-  }).$returningId();
-  const companyId = companyResult.id;
-  console.log(`Company created: id=${companyId}`);
+  }).onDuplicateKeyUpdate({ set: { name: "Kiari Petroleum Ltd" } });
+  const [companyRow] = await db.select({ id: companies.id }).from(companies).where(eq(companies.code, "KPL")).limit(1);
+  const companyId = companyRow.id;
+  console.log(`Company ready: id=${companyId}`);
 
-  // ─── Admin user ─────────────────────────────────────────────────────────────
+  // ─── Admin user (upsert by email) ────────────────────────────────────────────
   const adminHash = await hashPassword("Admin@1234");
-  const [adminResult] = await db.insert(users).values({
+  await db.insert(users).values({
     openId: "seed-admin-001",
     name: "Pierre Kiari",
     email: "kiaripierre0@gmail.com",
@@ -54,13 +56,14 @@ async function main() {
     role: "super_admin",
     companyId,
     isActive: true,
-  }).$returningId();
-  const adminId = adminResult.id;
-  console.log(`Admin user created: id=${adminId}`);
+  }).onDuplicateKeyUpdate({ set: { role: "super_admin", companyId, passwordHash: adminHash } });
+  const [adminRow] = await db.select({ id: users.id }).from(users).where(eq(users.email, "kiaripierre0@gmail.com")).limit(1);
+  const adminId = adminRow.id;
+  console.log(`Admin user ready: id=${adminId}`);
 
-  // ─── Manager user ────────────────────────────────────────────────────────────
+  // ─── Manager user (upsert) ───────────────────────────────────────────────────
   const mgrHash = await hashPassword("Manager@1234");
-  const [mgrResult] = await db.insert(users).values({
+  await db.insert(users).values({
     openId: "seed-mgr-001",
     name: "Sarah Nalwoga",
     email: "sarah.manager@kiaripetroleum.co.ug",
@@ -69,9 +72,10 @@ async function main() {
     role: "manager",
     companyId,
     isActive: true,
-  }).$returningId();
-  const managerId = mgrResult.id;
-  console.log(`Manager created: id=${managerId}`);
+  }).onDuplicateKeyUpdate({ set: { role: "manager", companyId } });
+  const [mgrRow] = await db.select({ id: users.id }).from(users).where(eq(users.email, "sarah.manager@kiaripetroleum.co.ug")).limit(1);
+  const managerId = mgrRow.id;
+  console.log(`Manager ready: id=${managerId}`);
 
   // ─── Stations ────────────────────────────────────────────────────────────────
   const stationRows = [
@@ -133,10 +137,11 @@ async function main() {
 
   const stationIds: number[] = [];
   for (const s of stationRows) {
-    const [r] = await db.insert(stations).values(s).$returningId();
-    stationIds.push(r.id);
+    await db.insert(stations).values(s).onDuplicateKeyUpdate({ set: { name: s.name } });
+    const [row] = await db.select({ id: stations.id }).from(stations).where(eq(stations.code, s.code)).limit(1);
+    stationIds.push(row.id);
   }
-  console.log(`Stations created: ids=${stationIds.join(", ")}`);
+  console.log(`Stations ready: ids=${stationIds.join(", ")}`);
 
   // ─── Fuel Types ──────────────────────────────────────────────────────────────
   const fuelTypeRows = [
@@ -146,8 +151,9 @@ async function main() {
   ];
   const fuelTypeIds: number[] = [];
   for (const ft of fuelTypeRows) {
-    const [r] = await db.insert(fuelTypes).values({ ...ft, isActive: true }).$returningId();
-    fuelTypeIds.push(r.id);
+    await db.insert(fuelTypes).values({ ...ft, isActive: true }).onDuplicateKeyUpdate({ set: { name: ft.name } });
+    const [row] = await db.select({ id: fuelTypes.id }).from(fuelTypes).where(eq(fuelTypes.code, ft.code)).limit(1);
+    fuelTypeIds.push(row.id);
   }
   const [petrolId, dieselId, keroId] = fuelTypeIds;
   console.log(`Fuel types created: ids=${fuelTypeIds.join(", ")}`);
