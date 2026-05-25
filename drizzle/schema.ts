@@ -12,16 +12,37 @@ import {
   varchar,
 } from "drizzle-orm/mysql-core";
 
+// ─── Companies ────────────────────────────────────────────────────────────────
+
+export const companies = mysqlTable("companies", {
+  id: int("id").autoincrement().primaryKey(),
+  name: varchar("name", { length: 255 }).notNull(),
+  code: varchar("code", { length: 32 }).notNull().unique(),
+  country: varchar("country", { length: 64 }).default("Uganda"),
+  phone: varchar("phone", { length: 32 }),
+  email: varchar("email", { length: 320 }),
+  address: text("address"),
+  logoUrl: text("logoUrl"),
+  isActive: boolean("isActive").default(true).notNull(),
+  createdAt: timestamp("createdAt").defaultNow().notNull(),
+  updatedAt: timestamp("updatedAt").defaultNow().onUpdateNow().notNull(),
+});
+
+export type Company = typeof companies.$inferSelect;
+export type InsertCompany = typeof companies.$inferInsert;
+
 // ─── Users & Auth ────────────────────────────────────────────────────────────
 
 export const users = mysqlTable("users", {
   id: int("id").autoincrement().primaryKey(),
   openId: varchar("openId", { length: 64 }).notNull().unique(),
   name: text("name"),
-  email: varchar("email", { length: 320 }),
+  email: varchar("email", { length: 320 }).unique(),
+  passwordHash: varchar("passwordHash", { length: 255 }),
   phone: varchar("phone", { length: 32 }),
   loginMethod: varchar("loginMethod", { length: 64 }),
-  role: mysqlEnum("role", ["admin", "owner", "manager", "supervisor", "accountant", "technician", "attendant", "user"]).default("user").notNull(),
+  role: mysqlEnum("role", ["super_admin", "company_owner", "company_admin", "manager", "supervisor", "accountant", "technician", "attendant", "user"]).default("user").notNull(),
+  companyId: int("companyId"),
   stationId: int("stationId"),
   isActive: boolean("isActive").default(true).notNull(),
   avatarUrl: text("avatarUrl"),
@@ -37,6 +58,7 @@ export type InsertUser = typeof users.$inferInsert;
 
 export const stations = mysqlTable("stations", {
   id: int("id").autoincrement().primaryKey(),
+  companyId: int("companyId"),
   name: varchar("name", { length: 255 }).notNull(),
   code: varchar("code", { length: 32 }).notNull().unique(),
   address: text("address"),

@@ -36,6 +36,13 @@
       "when": 1747699260000,
       "tag": "0004_pts_controllers",
       "breakpoints": true
+    },
+    {
+      "idx": 5,
+      "version": "5",
+      "when": 1748131200000,
+      "tag": "0005_companies_multitenant",
+      "breakpoints": true
     }
   ]
 }

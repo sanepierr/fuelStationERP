@@ -4,7 +4,7 @@ import * as db from "../db";
 
 export const invoicesRouter = router({
   list: protectedProcedure.query(async ({ ctx }) => {
-    if (['admin', 'owner'].includes(ctx.user.role)) return db.getAllInvoices();
+    if (['super_admin', 'company_owner', 'company_admin'].includes(ctx.user.role)) return db.getAllInvoices();
     return db.getAllInvoices(ctx.user.id);
   }),
 

@@ -7,10 +7,14 @@ import { Users as UsersIcon, Shield, UserCheck } from "lucide-react";
 import { toast } from "sonner";
 
 const roleColors: Record<string, string> = {
-  admin: 'badge-danger', owner: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
+  super_admin: 'badge-danger',
+  company_owner: 'bg-purple-500/20 text-purple-400 border border-purple-500/30',
+  company_admin: 'bg-indigo-500/20 text-indigo-400 border border-indigo-500/30',
   manager: 'badge-warning', supervisor: 'badge-info', accountant: 'bg-cyan-500/20 text-cyan-400 border border-cyan-500/30',
   technician: 'bg-orange-500/20 text-orange-400 border border-orange-500/30', attendant: 'badge-active', user: 'badge-inactive',
 };
+
+const ALL_ROLES = ['super_admin', 'company_owner', 'company_admin', 'manager', 'supervisor', 'accountant', 'technician', 'attendant', 'user'] as const;
 
 export default function Users() {
   const { data: users, isLoading, refetch } = trpc.users.list.useQuery();
@@ -30,7 +34,7 @@ export default function Users() {
       </div>
 
       <div className="grid grid-cols-4 gap-4">
-        {(['admin', 'owner', 'manager', 'attendant'] as const).map(role => (
+        {(['super_admin', 'company_owner', 'manager', 'attendant'] as const).map(role => (
           <Card key={role} className="bg-card border-border">
             <CardContent className="p-4 text-center">
               <p className="text-xl font-bold text-foreground">{users?.filter(u => u.role === role).length || 0}</p>
@@ -76,7 +80,7 @@ export default function Users() {
                     <Select value={u.role} onValueChange={v => updateUser.mutate({ id: u.id, role: v as any })}>
                       <SelectTrigger className="w-32 h-7 bg-input border-border text-xs"><SelectValue /></SelectTrigger>
                       <SelectContent>
-                        {['admin', 'owner', 'manager', 'supervisor', 'accountant', 'technician', 'attendant', 'user'].map(r => (
+                        {ALL_ROLES.map(r => (
                           <SelectItem key={r} value={r} className="text-xs capitalize">{r}</SelectItem>
                         ))}
                       </SelectContent>

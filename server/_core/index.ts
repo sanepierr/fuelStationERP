@@ -3,7 +3,7 @@ import express from "express";
 import { createServer } from "http";
 import net from "net";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
-import { registerOAuthRoutes } from "./oauth";
+import { registerAuthRoutes } from "./auth";
 import { registerStorageProxy } from "./storageProxy";
 import { appRouter } from "../routers/index";
 import { createContext } from "./context";
@@ -39,13 +39,13 @@ async function startServer() {
   app.use(express.json({ limit: "50mb" }));
   app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-  // Rate limit OAuth callback (auth surface)
-  app.use("/api/oauth", authRateLimit);
+  // Rate limit auth endpoints
+  app.use("/api/auth", authRateLimit);
   // Rate limit all tRPC calls
   app.use("/api/trpc", apiRateLimit);
 
   registerStorageProxy(app);
-  registerOAuthRoutes(app);
+  registerAuthRoutes(app);
   registerPtsWebhook(app);
 
   app.use(

@@ -32,7 +32,7 @@ export default function Stations() {
           <h1 className="text-2xl font-bold text-foreground">Stations</h1>
           <p className="text-muted-foreground text-sm">Manage all connected fuel stations</p>
         </div>
-        {['admin', 'owner'].includes(user?.role || '') && (
+        {['super_admin', 'company_owner', 'company_admin'].includes(user?.role || '') && (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
               <Button className="gap-2"><Plus className="w-4 h-4" />Add Station</Button>

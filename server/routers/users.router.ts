@@ -7,7 +7,7 @@ export const usersRouter = router({
 
   update: adminProcedure.input(z.object({
     id: z.number(),
-    role: z.enum(['admin', 'owner', 'manager', 'supervisor', 'accountant', 'technician', 'attendant', 'user']).optional(),
+    role: z.enum(['super_admin', 'company_owner', 'company_admin', 'manager', 'supervisor', 'accountant', 'technician', 'attendant', 'user']).optional(),
     stationId: z.number().optional(),
     isActive: z.boolean().optional(),
     name: z.string().optional(),

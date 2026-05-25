@@ -40,7 +40,7 @@ export default function TicketDetail() {
           </div>
           <h1 className="text-xl font-bold text-foreground">{ticket.title}</h1>
         </div>
-        {['admin', 'owner', 'manager', 'technician'].includes(user?.role || '') && (
+        {['super_admin', 'company_owner', 'company_admin', 'manager', 'technician'].includes(user?.role || '') && (
           <Select value={ticket.status} onValueChange={v => updateStatus.mutate({ id: ticketId, status: v as any })}>
             <SelectTrigger className="w-36 bg-input border-border"><SelectValue /></SelectTrigger>
             <SelectContent>

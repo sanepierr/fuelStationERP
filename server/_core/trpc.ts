@@ -27,11 +27,14 @@ const requireUser = t.middleware(async opts => {
 
 export const protectedProcedure = t.procedure.use(requireUser);
 
+const SUPER_ROLES = ['super_admin', 'company_owner', 'company_admin'] as const;
+const MANAGER_ROLES = [...SUPER_ROLES, 'manager', 'supervisor'] as const;
+
 export const adminProcedure = t.procedure.use(
   t.middleware(async opts => {
     const { ctx, next } = opts;
 
-    if (!ctx.user || ctx.user.role !== 'admin') {
+    if (!ctx.user || !SUPER_ROLES.includes(ctx.user.role as typeof SUPER_ROLES[number])) {
       throw new TRPCError({ code: "FORBIDDEN", message: NOT_ADMIN_ERR_MSG });
     }
 
@@ -45,13 +48,13 @@ export const adminProcedure = t.procedure.use(
 );
 
 export const ownerOrAdminProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (!['admin', 'owner'].includes(ctx.user.role))
+  if (!SUPER_ROLES.includes(ctx.user.role as typeof SUPER_ROLES[number]))
     throw new TRPCError({ code: 'FORBIDDEN', message: 'Admin or Owner access required' });
   return next({ ctx });
 });
 
 export const managerProcedure = protectedProcedure.use(({ ctx, next }) => {
-  if (!['admin', 'owner', 'manager', 'supervisor'].includes(ctx.user.role))
+  if (!MANAGER_ROLES.includes(ctx.user.role as typeof MANAGER_ROLES[number]))
     throw new TRPCError({ code: 'FORBIDDEN', message: 'Manager access required' });
   return next({ ctx });
 });

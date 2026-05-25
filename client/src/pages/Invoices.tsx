@@ -16,7 +16,7 @@ const statusColors: Record<string, string> = { draft: 'badge-inactive', sent: 'b
 
 export default function Invoices() {
   const { user } = useAuth();
-  const isAdmin = ['admin', 'owner'].includes(user?.role || '');
+  const isAdmin = ['super_admin', 'company_owner', 'company_admin'].includes(user?.role || '');
   const [addOpen, setAddOpen] = useState(false);
   const { data: invoices, isLoading, refetch } = trpc.invoices.list.useQuery();
   const createInvoice = trpc.invoices.create.useMutation({ onSuccess: () => { toast.success("Invoice created"); setAddOpen(false); refetch(); } });
