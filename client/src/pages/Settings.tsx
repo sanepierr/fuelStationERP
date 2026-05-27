@@ -26,7 +26,7 @@ export default function Settings() {
   const fuelTypesQuery = trpc.fuelTypes.list.useQuery();
   const fuelTypes = fuelTypesQuery.data ?? [];
   const fuelPricesQuery = trpc.fuelPrices.forStation.useQuery({ stationId: stationId! }, { enabled: !!stationId });
-  const fuelPrices = fuelPricesQuery.data ?? [];
+  const fuelPrices = fuelPricesQuery.data;
 
   // Station info form
   const [info, setInfo] = useState({ name: "", address: "", city: "", phone: "", email: "", tinNumber: "", licenseNumber: "", status: "active" as "active" | "inactive" | "maintenance" });
@@ -42,13 +42,14 @@ export default function Settings() {
     setInfo({ name: station.name ?? "", address: (station.address as string) ?? "", city: station.city ?? "", phone: station.phone ?? "", email: station.email ?? "", tinNumber: station.tinNumber ?? "", licenseNumber: station.licenseNumber ?? "", status: station.status });
     setCctv({ hikVisionHost: (station.hikVisionHost as string) ?? "", hikVisionUsername: station.hikVisionUsername ?? "", hikVisionPassword: "", atgHost: (station.atgHost as string) ?? "", atgPort: station.atgPort ?? 10001 });
     setPts2({ pts2Host: (station as any).pts2Host ?? "", pts2Port: (station as any).pts2Port ?? 80, pts2Username: (station as any).pts2Username ?? "", pts2Password: "", pts2SyncEnabled: (station as any).pts2SyncEnabled ?? false, pts2FirmwareVersion: (station as any).pts2FirmwareVersion ?? "", pts2SerialNumber: (station as any).pts2SerialNumber ?? "" });
-  }, [station]);
+  }, [stationQuery.dataUpdatedAt]);
 
   useEffect(() => {
+    if (!fuelPrices) return;
     const map: Record<number, string> = {};
     fuelPrices.forEach((fp: any) => { if (fp.isActive) map[fp.fuelTypeId] = fp.pricePerUnit; });
     setPrices(map);
-  }, [fuelPrices]);
+  }, [fuelPricesQuery.dataUpdatedAt]);
 
   const updateStation = trpc.stations.update.useMutation({
     onSuccess: () => { stationQuery.refetch(); toast.success("Settings saved"); },
@@ -209,7 +210,7 @@ export default function Settings() {
                 <CardDescription>Current price per litre (UGX) for each fuel type at this station</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
-                {fuelTypes.filter(ft => ft.isActive).map(ft => (
+                {fuelTypes.filter((ft: any) => ft.isActive).map((ft: any) => (
                   <div key={ft.id} className="flex items-center gap-4">
                     <div className="w-3 h-3 rounded-full flex-shrink-0" style={{ backgroundColor: ft.color ?? "#f59e0b" }} />
                     <div className="w-32">
